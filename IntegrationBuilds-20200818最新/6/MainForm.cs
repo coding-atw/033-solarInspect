@@ -110,7 +110,7 @@ using MvCamCtrl.NET;
 //（1）补充英文界面；
 //2020--8-05----徐慧鹏：
 //（1）增加上位链路通讯功能；
-//（2）修复尾片打滑导致的程序崩溃；
+//（2）修复尾片打滑导致的程序崩溃；  
 namespace _6
 {
     public partial class MainForm : Form
@@ -1802,11 +1802,13 @@ namespace _6
                 // ch:关闭设备 | en:Close Device
                 devicePositiveA.MV_CC_CloseDevice_NET();
                 devicePositiveA.MV_CC_DestroyDevice_NET();
+                IsCameraPositiveAConnected = false;
+                Global.SaveLog("D:\\Program Files\\Config\\033\\RawA.txt",
+                                DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "--" + "相机A掉线");
+                ConnectCamerasPositive();
 
-               
-                
-                }
             }
+        }
         private void cbExceptiondelegatePositiveB(uint nMsgType, IntPtr pUser)
         {
             if (nMsgType == MyCamera.MV_EXCEPTION_DEV_DISCONNECT)
@@ -1819,10 +1821,12 @@ namespace _6
                 // ch:关闭设备 | en:Close Device
                 devicePositiveB.MV_CC_CloseDevice_NET();
                 devicePositiveB.MV_CC_DestroyDevice_NET();
+                IsCameraPositiveBConnected = false;
+                Global.SaveLog("D:\\Program Files\\Config\\033\\RawA.txt",
+                               DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "--" + "相机B掉线");
+                ConnectCamerasPositive();
 
 
-
-                
             }
         }
         //链接相机函数
