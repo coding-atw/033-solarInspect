@@ -1816,7 +1816,7 @@ namespace _6
                 // ch:停止采集 | en:Stop Grabbing
                 devicePositiveB.MV_CC_StopGrabbing_NET();
 
-
+                   
 
                 // ch:关闭设备 | en:Close Device
                 devicePositiveB.MV_CC_CloseDevice_NET();

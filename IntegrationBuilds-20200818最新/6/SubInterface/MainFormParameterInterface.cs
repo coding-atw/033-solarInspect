@@ -1694,7 +1694,16 @@ namespace _6
                 Global.surfaceDefectViceLineShieldWidthPositiveA = txtSurfaceDefectViceLineShieldWidth_PositiveA.Text;
                 Global.surfaceDefectViceLineShieldLeftPosOffSetPositiveA = txtSurfaceDefectViceLineShieldLeftPosOffSet_PositiveA.Text;
                 Global.surfaceDefectViceLineShieldRightPosOffSetPositiveA = txtSurfaceDefectViceLineShieldRightPosOffSet_PositiveA.Text;
-                Global.surfaceScratchGrayThreshPositiveA = txtSurfaceScratchGrayThresh_PositiveA.Text;
+                if (Convert.ToInt32(txtSurfaceScratchGrayThresh_PositiveA.Text) < 128)
+                {
+                    Global.surfaceScratchGrayThreshPositiveA = txtSurfaceScratchGrayThresh_PositiveA.Text;
+                }
+                else
+                {
+                    txtSurfaceScratchGrayThresh_PositiveA.Text = "127";
+                    Global.surfaceScratchGrayThreshPositiveA = txtSurfaceScratchGrayThresh_PositiveA.Text;
+                }
+               
                 Global.surfaceScratchWidthThreshPositiveA = txtSurfaceScratchWidthThresh_PositiveA.Text;
                 Global.surfaceScratchHeightThreshPositiveA = txtSurfaceScratchHeightThresh_PositiveA.Text;
 
@@ -3180,8 +3189,30 @@ namespace _6
                 Config.WriteIniData("Config", "SurfaceDefectViceLineShieldLeftPosOffSetPositiveB", txtSurfaceDefectViceLineShieldLeftPosOffSet_PositiveB.Text, path);
                 Config.WriteIniData("Config", "SurfaceDefectViceLineShieldRightPosOffSetPositiveA", txtSurfaceDefectViceLineShieldRightPosOffSet_PositiveA.Text, path);
                 Config.WriteIniData("Config", "SurfaceDefectViceLineShieldRightPosOffSetPositiveB", txtSurfaceDefectViceLineShieldRightPosOffSet_PositiveB.Text, path);
-                Config.WriteIniData("Config", "SurfaceScratchGrayThreshPositiveA", txtSurfaceScratchGrayThresh_PositiveA.Text, path);
-                Config.WriteIniData("Config", "SurfaceScratchGrayThreshPositiveB", txtSurfaceScratchGrayThresh_PositiveB.Text, path);
+
+                if (Convert.ToInt32(txtSurfaceScratchGrayThresh_PositiveA.Text) < 128)
+                {
+                    Config.WriteIniData("Config", "SurfaceScratchGrayThreshPositiveA", txtSurfaceScratchGrayThresh_PositiveA.Text, path);
+
+                }
+                else
+                {
+                    txtSurfaceScratchGrayThresh_PositiveA.Text = "127";
+                    Config.WriteIniData("Config", "SurfaceScratchGrayThreshPositiveA", txtSurfaceScratchGrayThresh_PositiveA.Text, path);
+
+                }
+
+                if (Convert.ToInt32(txtSurfaceScratchGrayThresh_PositiveB.Text) < 128)
+                {
+                    Config.WriteIniData("Config", "SurfaceScratchGrayThreshPositiveB", txtSurfaceScratchGrayThresh_PositiveB.Text, path);
+
+                }
+                else
+                {
+                    txtSurfaceScratchGrayThresh_PositiveB.Text = "127";
+                    Config.WriteIniData("Config", "SurfaceScratchGrayThreshPositiveB", txtSurfaceScratchGrayThresh_PositiveB.Text, path);
+
+                }
                 Config.WriteIniData("Config", "SurfaceScratchWidthThreshPositiveA", txtSurfaceScratchWidthThresh_PositiveA.Text, path);
                 Config.WriteIniData("Config", "SurfaceScratchWidthThreshPositiveB", txtSurfaceScratchWidthThresh_PositiveB.Text, path);
                 Config.WriteIniData("Config", "SurfaceScratchHeightThreshPositiveA", txtSurfaceScratchHeightThresh_PositiveA.Text, path);
