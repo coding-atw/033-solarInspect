@@ -1688,7 +1688,7 @@ namespace _6
             }
             finally
             {
-                //Marshal.FreeHGlobal(ptrRGB_PositiveA);
+                Marshal.FreeHGlobal(ptrRGB_PositiveA);
             }
 
         }

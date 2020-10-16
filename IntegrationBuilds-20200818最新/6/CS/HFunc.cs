@@ -10913,7 +10913,7 @@ namespace _6
                         //防止部分纵向细栅线未剔除造成误检
 
                         //connection (ClosingThresholdHighPassImageRegion, ThresholdHighPassImageRegionConnection)
-                        //*         select_shape_proto (ThresholdHighPassImageRegionConnection, ParallelViceLineDilation, ClosingThresholdHighPassImageRegion, 'overlaps_rel', 0, 90)
+                        //select_shape_proto (ThresholdHighPassImageRegionConnection, ParallelViceLineDilation, ClosingThresholdHighPassImageRegion, 'overlaps_rel', 0, 90)
                         ho_ConnectedSurfaceDefectSuspiciousRegions.Dispose();
                         HOperatorSet.Connection(ho_ClosingThresholdHighPassImageRegion, out ho_ConnectedSurfaceDefectSuspiciousRegions
                             );
@@ -14807,10 +14807,9 @@ namespace _6
             HObject ho_EmptyObject, ho_BlackT, ho_BlackB;
             HObject ho_Rectangle1 = null, ho_Rectangle2 = null, ho_Rectangle3 = null;
             HObject ho_Rectangle4 = null, ho_Rectangle5 = null, ho_Rectangle6 = null;
-            HObject ho_ImageReduced1, ho_EdgeAmplitudeTB1, ho_ImageReduced2;
-            HObject ho_ImageReduced3, ho_ImageReduced4, ho_ImageReduced5;
-            HObject ho_ImageReduced6, ho_EdgeAmplitudeTLR = null, ho_EdgeAmplitudeBLR = null;
-            HObject ho_ContourT = null, ho_Contour = null;
+            HObject ho_EdgeAmplitudeTB1, ho_ImageReduced2, ho_ImageReduced3;
+            HObject ho_ImageReduced4, ho_ImageReduced5, ho_EdgeAmplitudeTLR = null;
+            HObject ho_EdgeAmplitudeBLR = null, ho_ContourT = null, ho_Contour = null;
 
             // Local control variables 
 
@@ -14823,32 +14822,30 @@ namespace _6
             HTuple hv_ColOfBottomL2 = new HTuple(), hv_ColOfBottomR2 = new HTuple();
             HTuple hv_widthOfWaferT = null, hv_widthOfWaferB = null;
             HTuple hv_widthOfWafer = new HTuple(), hv_Row6 = new HTuple();
-            HTuple hv_OpenWidth = null, hv_LineTB1 = null, hv_LineBT1 = null;
-            HTuple hv_LineTB2 = null, hv_LineBT2 = null, hv_LineTB3 = null;
-            HTuple hv_LineBT3 = null, hv_LineTB4 = null, hv_LineBT4 = null;
-            HTuple hv_LineTB5 = null, hv_LineBT5 = null, hv_LineTB6 = null;
-            HTuple hv_LineBT6 = null, hv_TBLength = null, hv_BTLength = null;
-            HTuple hv_EdgeLineTL = new HTuple(), hv_EdgeLineTR = new HTuple();
-            HTuple hv_EdgeLineBL = new HTuple(), hv_EdgeLineBR = new HTuple();
-            HTuple hv_LineTL = new HTuple(), hv_LineTR = new HTuple();
-            HTuple hv_LineBL = new HTuple(), hv_LineBR = new HTuple();
-            HTuple hv_isTopColorRegionOut = new HTuple(), hv_isBottomColorRegionOut = new HTuple();
-            HTuple hv_LineTT = new HTuple(), hv_LineBB = new HTuple();
-            HTuple hv_RowsT = new HTuple(), hv_ColsT = new HTuple();
-            HTuple hv_TLRow = new HTuple(), hv_TLCol = new HTuple();
-            HTuple hv_TRRow = new HTuple(), hv_TRCol = new HTuple();
-            HTuple hv_LengthTB = new HTuple(), hv_TRowNum = new HTuple();
-            HTuple hv_TColNum = new HTuple(), hv_Index = new HTuple();
-            HTuple hv_TRowBegin = new HTuple(), hv_TColBegin = new HTuple();
-            HTuple hv_TRowEnd = new HTuple(), hv_TColEnd = new HTuple();
-            HTuple hv_Nr = new HTuple(), hv_Nc = new HTuple(), hv_Dist = new HTuple();
-            HTuple hv_RowsB = new HTuple(), hv_ColsB = new HTuple();
-            HTuple hv_BLRow = new HTuple(), hv_BLCol = new HTuple();
-            HTuple hv_BRRow = new HTuple(), hv_BRCol = new HTuple();
-            HTuple hv_BLength = new HTuple(), hv_BRowNum = new HTuple();
-            HTuple hv_BColNum = new HTuple(), hv_RowBegin = new HTuple();
-            HTuple hv_ColBegin = new HTuple(), hv_RowEnd = new HTuple();
-            HTuple hv_ColEnd = new HTuple();
+            HTuple hv_OpenWidth = null, hv_LineTB2 = null, hv_LineBT2 = null;
+            HTuple hv_LineTB3 = null, hv_LineBT3 = null, hv_LineTB4 = null;
+            HTuple hv_LineBT4 = null, hv_LineTB5 = null, hv_LineBT5 = null;
+            HTuple hv_TBLength = null, hv_BTLength = null, hv_EdgeLineTL = new HTuple();
+            HTuple hv_EdgeLineTR = new HTuple(), hv_EdgeLineBL = new HTuple();
+            HTuple hv_EdgeLineBR = new HTuple(), hv_LineTL = new HTuple();
+            HTuple hv_LineTR = new HTuple(), hv_LineBL = new HTuple();
+            HTuple hv_LineBR = new HTuple(), hv_isTopColorRegionOut = new HTuple();
+            HTuple hv_isBottomColorRegionOut = new HTuple(), hv_LineTT = new HTuple();
+            HTuple hv_LineBB = new HTuple(), hv_RowsT = new HTuple();
+            HTuple hv_ColsT = new HTuple(), hv_TLRow = new HTuple();
+            HTuple hv_TLCol = new HTuple(), hv_TRRow = new HTuple();
+            HTuple hv_TRCol = new HTuple(), hv_LengthTB = new HTuple();
+            HTuple hv_TRowNum = new HTuple(), hv_TColNum = new HTuple();
+            HTuple hv_Index = new HTuple(), hv_TRowBegin = new HTuple();
+            HTuple hv_TColBegin = new HTuple(), hv_TRowEnd = new HTuple();
+            HTuple hv_TColEnd = new HTuple(), hv_Nr = new HTuple();
+            HTuple hv_Nc = new HTuple(), hv_Dist = new HTuple(), hv_RowsB = new HTuple();
+            HTuple hv_ColsB = new HTuple(), hv_BLRow = new HTuple();
+            HTuple hv_BLCol = new HTuple(), hv_BRRow = new HTuple();
+            HTuple hv_BRCol = new HTuple(), hv_BLength = new HTuple();
+            HTuple hv_BRowNum = new HTuple(), hv_BColNum = new HTuple();
+            HTuple hv_RowBegin = new HTuple(), hv_ColBegin = new HTuple();
+            HTuple hv_RowEnd = new HTuple(), hv_ColEnd = new HTuple();
             // Initialize local and output iconic variables 
             HOperatorSet.GenEmptyObj(out ho_TopRegion);
             HOperatorSet.GenEmptyObj(out ho_BottomRegion);
@@ -14861,13 +14858,11 @@ namespace _6
             HOperatorSet.GenEmptyObj(out ho_Rectangle4);
             HOperatorSet.GenEmptyObj(out ho_Rectangle5);
             HOperatorSet.GenEmptyObj(out ho_Rectangle6);
-            HOperatorSet.GenEmptyObj(out ho_ImageReduced1);
             HOperatorSet.GenEmptyObj(out ho_EdgeAmplitudeTB1);
             HOperatorSet.GenEmptyObj(out ho_ImageReduced2);
             HOperatorSet.GenEmptyObj(out ho_ImageReduced3);
             HOperatorSet.GenEmptyObj(out ho_ImageReduced4);
             HOperatorSet.GenEmptyObj(out ho_ImageReduced5);
-            HOperatorSet.GenEmptyObj(out ho_ImageReduced6);
             HOperatorSet.GenEmptyObj(out ho_EdgeAmplitudeTLR);
             HOperatorSet.GenEmptyObj(out ho_EdgeAmplitudeBLR);
             HOperatorSet.GenEmptyObj(out ho_ContourT);
@@ -15054,15 +15049,10 @@ namespace _6
                 }
                 //gen_rectangle1 (Rectangle1, 0, Width/12, Height-1, Width/6)
                 hv_OpenWidth = 20;
-                ho_ImageReduced1.Dispose();
-                HOperatorSet.ReduceDomain(ho_Image1, ho_Rectangle1, out ho_ImageReduced1);
-                ho_EdgeAmplitudeTB1.Dispose();
-                GetEdge(ho_ImageReduced1, out ho_EdgeAmplitudeTB1, hv_OpenHeight, hv_OpenWidth,
-                    40, "y", 0, 0, hv_isTopWaferExist, hv_isBottomWaferExist, "TB", hv_Height,
-                    "1", hv_windowHandle, hv_ColOfTopL, hv_ColOfTopR, hv_ColOfBottomL, hv_ColOfBottomR,
-                    hv_widthOfWafer / 6, out hv_LineTB1, out hv_LineBT1);
-                HOperatorSet.TupleConcat(hv_LineTB, hv_LineTB1, out hv_LineTB);
-                HOperatorSet.TupleConcat(hv_LineBT, hv_LineBT1, out hv_LineBT);
+                //reduce_domain (Image1, Rectangle1, ImageReduced1)
+                //GetEdge (ImageReduced1, EdgeAmplitudeTB1, OpenHeight, OpenWidth, 40, 'y', 0, 0, isTopWaferExist, isBottomWaferExist, 'TB', Height, '1', windowHandle, ColOfTopL, ColOfTopR, ColOfBottomL, ColOfBottomR, widthOfWafer/6, LineTB1, LineBT1)
+                //tuple_concat (LineTB, LineTB1, LineTB)
+                //tuple_concat (LineBT, LineBT1, LineBT)
                 //
                 //gen_rectangle1 (Rectangle2, 0, Width/6, Height-1, 2*Width/6)
                 ho_ImageReduced2.Dispose();
@@ -15109,15 +15099,10 @@ namespace _6
                 HOperatorSet.TupleConcat(hv_LineBT, hv_LineBT5, out hv_LineBT);
 
                 //gen_rectangle1 (Rectangle6, 0, 5*Width/6, Height-1, 11*Width/12)
-                ho_ImageReduced6.Dispose();
-                HOperatorSet.ReduceDomain(ho_Image1, ho_Rectangle6, out ho_ImageReduced6);
-                ho_EdgeAmplitudeTB1.Dispose();
-                GetEdge(ho_ImageReduced6, out ho_EdgeAmplitudeTB1, hv_OpenHeight, hv_OpenWidth,
-                    40, "y", 0, 0, hv_isTopWaferExist, hv_isBottomWaferExist, "TB", hv_Height,
-                    "6", hv_windowHandle, hv_ColOfTopL, hv_ColOfTopR, hv_ColOfBottomL, hv_ColOfBottomR,
-                    hv_widthOfWafer / 6, out hv_LineTB6, out hv_LineBT6);
-                HOperatorSet.TupleConcat(hv_LineTB, hv_LineTB6, out hv_LineTB);
-                HOperatorSet.TupleConcat(hv_LineBT, hv_LineBT6, out hv_LineBT);
+                //reduce_domain (Image1, Rectangle6, ImageReduced6)
+                //GetEdge (ImageReduced6, EdgeAmplitudeTB1, OpenHeight, OpenWidth, 40, 'y', 0, 0, isTopWaferExist, isBottomWaferExist, 'TB', Height, '6', windowHandle, ColOfTopL, ColOfTopR, ColOfBottomL, ColOfBottomR, widthOfWafer/6, LineTB6, LineBT6)
+                //tuple_concat (LineTB, LineTB6, LineTB)
+                //tuple_concat (LineBT, LineBT6, LineBT)
                 //
                 HOperatorSet.TupleLength(hv_LineTB, out hv_TBLength);
                 HOperatorSet.TupleLength(hv_LineBT, out hv_BTLength);
@@ -15283,13 +15268,11 @@ namespace _6
                 ho_Rectangle4.Dispose();
                 ho_Rectangle5.Dispose();
                 ho_Rectangle6.Dispose();
-                ho_ImageReduced1.Dispose();
                 ho_EdgeAmplitudeTB1.Dispose();
                 ho_ImageReduced2.Dispose();
                 ho_ImageReduced3.Dispose();
                 ho_ImageReduced4.Dispose();
                 ho_ImageReduced5.Dispose();
-                ho_ImageReduced6.Dispose();
                 ho_EdgeAmplitudeTLR.Dispose();
                 ho_EdgeAmplitudeBLR.Dispose();
                 ho_ContourT.Dispose();
@@ -15308,13 +15291,11 @@ namespace _6
                 ho_Rectangle4.Dispose();
                 ho_Rectangle5.Dispose();
                 ho_Rectangle6.Dispose();
-                ho_ImageReduced1.Dispose();
                 ho_EdgeAmplitudeTB1.Dispose();
                 ho_ImageReduced2.Dispose();
                 ho_ImageReduced3.Dispose();
                 ho_ImageReduced4.Dispose();
                 ho_ImageReduced5.Dispose();
-                ho_ImageReduced6.Dispose();
                 ho_EdgeAmplitudeTLR.Dispose();
                 ho_EdgeAmplitudeBLR.Dispose();
                 ho_ContourT.Dispose();
