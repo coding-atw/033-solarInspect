@@ -11822,7 +11822,7 @@ namespace _6
                         {
                             //7.17修改二值化抓取细栅线改为全局阈值50-255
                             ho_Region.Dispose();
-                            HOperatorSet.Threshold(ho_ImageOpening, out ho_Region, 30, 255);
+                            HOperatorSet.Threshold(ho_ImageOpening, out ho_Region, 50, 255);
                         }
                         ho_ConnectedRegions1.Dispose();
                         HOperatorSet.Connection(ho_Region, out ho_ConnectedRegions1);
@@ -15595,10 +15595,9 @@ namespace _6
                         HTuple step_val86 = 1;
                         for (hv_Index = 1; hv_Index.Continue(end_val86, step_val86); hv_Index = hv_Index.TupleAdd(step_val86))
                         {
-                            if ((int)((new HTuple((new HTuple((new HTuple((((hv_NewValueSorted.TupleSelect(
-                                hv_Index)) - hv_first)).TupleLess(2 * hv_OpenHeight))).TupleAnd(new HTuple((((hv_NewValueSorted.TupleSelect(
-                                hv_Index)) - hv_first)).TupleGreater(hv_OpenHeight))))).TupleOr(new HTuple((((hv_NewValueSorted.TupleSelect(
-                                hv_Index)) - hv_first)).TupleGreater(200))))).TupleAnd(new HTuple(((hv_NewValueSorted.TupleSelect(
+                            if ((int)((new HTuple((new HTuple((((hv_NewValueSorted.TupleSelect(hv_Index)) - hv_first1)).TupleLess(
+                                2 * hv_OpenHeight))).TupleAnd(new HTuple((((hv_NewValueSorted.TupleSelect(
+                                hv_Index)) - hv_first1)).TupleGreater(hv_OpenHeight))))).TupleAnd(new HTuple(((hv_NewValueSorted.TupleSelect(
                                 hv_Index))).TupleLess(hv_RowAgv)))) != 0)
                             {
                                 hv_first = hv_NewValueSorted.TupleSelect(hv_Index);
@@ -19478,7 +19477,7 @@ namespace _6
                     DetectWeldDefectOfSingleMainLineForMBB(ho_ImageForWeldingDetect, ho_detectRegion,
                         out ho_weldingNGRegionOutOfFirstMainLine, out ho_mainLineRegionOutOfFisrtMainLine,
                         hv_windowHandle, hv_width, hv_height, hv_widthResolution, hv_heightResolution,
-                        hv_RowOfMainLine, hv_ColOfMainLine, hv_Phi, 40, hv_halfHeight1, hv_locationMainLineThresh,
+                        hv_RowOfMainLine, hv_ColOfMainLine, hv_Phi, 60, hv_halfHeight1, hv_locationMainLineThresh,
                         hv_filmWidthThresh, hv_headAndTailFilmWidthThresh, hv_isTopRegion, hv_firstDetectPosForTopRegion,
                         hv_secondDetectPosForTopRegion, hv_firstDetectPosForBottomRegion, hv_secondDetectPosForBottomRegion,
                         hv_weldWidthThresh, hv_filmWidthOffset, hv_isUsingChinese, hv_isUsingStartWeldingDetect,
@@ -25301,7 +25300,8 @@ namespace _6
             HTuple hv_modelIDOfTop, HTuple hv_isBackDetect, HTuple hv_isTopWaferExist, HTuple hv_isBottomWaferExist,
             HTuple hv_isUsingChinese, HTuple hv_windowHandle, HTuple hv_widthResolution,
             HTuple hv_heightResolution, HTuple hv_edgeSmallDefectDetectDepth, HTuple hv_twoMainLineDistance,
-            out HTuple hv_isGetTRRegionReturn, out HTuple hv_isFoundTopEdgeRegionOut, out HTuple hv_isFoundBottomEdgeRegionOut,
+            HTuple hv_minimumArea, HTuple hv_maxArea, out HTuple hv_isGetTRRegionReturn,
+            out HTuple hv_isFoundTopEdgeRegionOut, out HTuple hv_isFoundBottomEdgeRegionOut,
             out HTuple hv_isException, out HTuple hv_exceptionInfo, out HTuple hv_AngleTBX,
             out HTuple hv_AngleBTX, out HTuple hv_isBottomWaferFound, out HTuple hv_regionNumber)
         {
@@ -25314,13 +25314,14 @@ namespace _6
 
             // Local iconic variables 
 
+            HObject ho_TopRegionsTemp, ho_BottomRegionsTemp;
             HObject ho_RegionsOfBinaryThreshold = null, ho_ConnectedRegions;
-            HObject ho_SortedRegions, ho_TopEdgeRegion = null, ho_BottomEdgeRegion = null;
-            HObject ho_WaferOfToppart = null, ho_TopImageReduced = null;
-            HObject ho_ImageResultTop = null, ho_RegionsOfBinaryThreshold1 = null;
-            HObject ho_RegionsOfBinaryThreshold2 = null, ho_RegionsOfBinaryThreshold3 = null;
-            HObject ho_SelectedRegionsTop = null, ho_WaferOfBottompart = null;
-            HObject ho_EmptyRegion = null;
+            HObject ho_SelectedRegions1, ho_SortedRegions, ho_TopEdgeRegion = null;
+            HObject ho_BottomEdgeRegion = null, ho_WaferOfToppart = null;
+            HObject ho_TopImageReduced = null, ho_ImageResultTop = null;
+            HObject ho_RegionsOfBinaryThreshold1 = null, ho_RegionsOfBinaryThreshold2 = null;
+            HObject ho_RegionsOfBinaryThreshold3 = null, ho_SelectedRegionsTop = null;
+            HObject ho_WaferOfBottompart = null, ho_EmptyRegion = null;
 
             // Local control variables 
 
@@ -25350,8 +25351,11 @@ namespace _6
             HOperatorSet.GenEmptyObj(out ho_SelectedRegions);
             HOperatorSet.GenEmptyObj(out ho_RegionFillUp);
             HOperatorSet.GenEmptyObj(out ho_RegionOpening);
+            HOperatorSet.GenEmptyObj(out ho_TopRegionsTemp);
+            HOperatorSet.GenEmptyObj(out ho_BottomRegionsTemp);
             HOperatorSet.GenEmptyObj(out ho_RegionsOfBinaryThreshold);
             HOperatorSet.GenEmptyObj(out ho_ConnectedRegions);
+            HOperatorSet.GenEmptyObj(out ho_SelectedRegions1);
             HOperatorSet.GenEmptyObj(out ho_SortedRegions);
             HOperatorSet.GenEmptyObj(out ho_TopEdgeRegion);
             HOperatorSet.GenEmptyObj(out ho_BottomEdgeRegion);
@@ -25382,6 +25386,11 @@ namespace _6
                 HOperatorSet.GenEmptyRegion(out ho_TopRegion);
                 ho_BottomRegion.Dispose();
                 HOperatorSet.GenEmptyRegion(out ho_BottomRegion);
+                //阈值分割找到的上下区域
+                ho_TopRegionsTemp.Dispose();
+                HOperatorSet.GenEmptyRegion(out ho_TopRegionsTemp);
+                ho_BottomRegionsTemp.Dispose();
+                HOperatorSet.GenEmptyRegion(out ho_BottomRegionsTemp);
                 //2020.06.17-输出结果
                 hv_isException = 0;
                 hv_exceptionInfo = "";
@@ -25418,9 +25427,12 @@ namespace _6
                 HOperatorSet.OpeningRectangle1(ho_RegionFillUp, out ho_RegionOpening, 30, 30);
                 ho_ConnectedRegions.Dispose();
                 HOperatorSet.Connection(ho_RegionOpening, out ho_ConnectedRegions);
-                HOperatorSet.CountObj(ho_ConnectedRegions, out hv_BigRegionNum);
+                ho_SelectedRegions1.Dispose();
+                HOperatorSet.SelectShape(ho_ConnectedRegions, out ho_SelectedRegions1, "area",
+                    "and", hv_minimumArea, hv_maxArea);
+                HOperatorSet.CountObj(ho_SelectedRegions1, out hv_BigRegionNum);
                 ho_SortedRegions.Dispose();
-                HOperatorSet.SortRegion(ho_ConnectedRegions, out ho_SortedRegions, "upper_left",
+                HOperatorSet.SortRegion(ho_SelectedRegions1, out ho_SortedRegions, "upper_left",
                     "true", "row");
                 //2020.06.08-上下半片都存在，倘若没有区分开上下区域
                 if ((int)((new HTuple((new HTuple(hv_BigRegionNum.TupleEqual(1))).TupleAnd(
@@ -25444,9 +25456,12 @@ namespace _6
                         30);
                     ho_ConnectedRegions.Dispose();
                     HOperatorSet.Connection(ho_RegionOpening, out ho_ConnectedRegions);
-                    HOperatorSet.CountObj(ho_ConnectedRegions, out hv_BigRegionNum);
+                    ho_SelectedRegions1.Dispose();
+                    HOperatorSet.SelectShape(ho_ConnectedRegions, out ho_SelectedRegions1, "area",
+                        "and", hv_minimumArea, hv_maxArea);
+                    HOperatorSet.CountObj(ho_SelectedRegions1, out hv_BigRegionNum);
                     ho_SortedRegions.Dispose();
-                    HOperatorSet.SortRegion(ho_ConnectedRegions, out ho_SortedRegions, "upper_left",
+                    HOperatorSet.SortRegion(ho_SelectedRegions1, out ho_SortedRegions, "upper_left",
                         "true", "row");
                 }
                 if ((int)(new HTuple(hv_BigRegionNum.TupleEqual(1))) != 0)
@@ -25553,8 +25568,11 @@ namespace _6
                                 disp_message_UserDefine(hv_windowHandle, hv_exceptionInfo, 100, 12,
                                     "red");
                                 hv_isGetTRRegionReturn = 1;
+                                ho_TopRegionsTemp.Dispose();
+                                ho_BottomRegionsTemp.Dispose();
                                 ho_RegionsOfBinaryThreshold.Dispose();
                                 ho_ConnectedRegions.Dispose();
+                                ho_SelectedRegions1.Dispose();
                                 ho_SortedRegions.Dispose();
                                 ho_TopEdgeRegion.Dispose();
                                 ho_BottomEdgeRegion.Dispose();
@@ -25627,6 +25645,10 @@ namespace _6
                     if ((int)((new HTuple(hv_isTopWaferExist.TupleEqual(1))).TupleAnd(new HTuple(hv_isBottomWaferExist.TupleEqual(
                         1)))) != 0)
                     {
+                        ho_TopRegionsTemp.Dispose();
+                        HOperatorSet.SelectObj(ho_SelectedRegions1, out ho_TopRegionsTemp, 1);
+                        ho_BottomRegionsTemp.Dispose();
+                        HOperatorSet.SelectObj(ho_SelectedRegions1, out ho_BottomRegionsTemp, 2);
                         //2020.06.24-正面使用轮廓查找
                         //2020.06.02-拉伸情况找到区域，导致程序奔溃，改内部处理
                         if ((int)(new HTuple(hv_isBackDetect.TupleEqual(0))) != 0)
@@ -25730,8 +25752,11 @@ namespace _6
                         }
                         disp_message_UserDefine(hv_windowHandle, hv_exceptionInfo, 100, 12, "red");
                         hv_isGetRegionReturn = 1;
+                        ho_TopRegionsTemp.Dispose();
+                        ho_BottomRegionsTemp.Dispose();
                         ho_RegionsOfBinaryThreshold.Dispose();
                         ho_ConnectedRegions.Dispose();
+                        ho_SelectedRegions1.Dispose();
                         ho_SortedRegions.Dispose();
                         ho_TopEdgeRegion.Dispose();
                         ho_BottomEdgeRegion.Dispose();
@@ -25761,8 +25786,11 @@ namespace _6
                     }
                     disp_message_UserDefine(hv_windowHandle, hv_exceptionInfo, 100, 12, "red");
                     hv_isGetTRRegionReturn = 1;
+                    ho_TopRegionsTemp.Dispose();
+                    ho_BottomRegionsTemp.Dispose();
                     ho_RegionsOfBinaryThreshold.Dispose();
                     ho_ConnectedRegions.Dispose();
+                    ho_SelectedRegions1.Dispose();
                     ho_SortedRegions.Dispose();
                     ho_TopEdgeRegion.Dispose();
                     ho_BottomEdgeRegion.Dispose();
@@ -25802,8 +25830,11 @@ namespace _6
                         }
                         disp_message_UserDefine(hv_windowHandle, hv_exceptionInfo, 100, 12, "red");
                         hv_isGetTRRegionReturn = 1;
+                        ho_TopRegionsTemp.Dispose();
+                        ho_BottomRegionsTemp.Dispose();
                         ho_RegionsOfBinaryThreshold.Dispose();
                         ho_ConnectedRegions.Dispose();
+                        ho_SelectedRegions1.Dispose();
                         ho_SortedRegions.Dispose();
                         ho_TopEdgeRegion.Dispose();
                         ho_BottomEdgeRegion.Dispose();
@@ -25837,8 +25868,11 @@ namespace _6
                     hv_isFoundBottomEdgeRegionOut = 0;
                 }
                 hv_regionNumber = hv_BigRegionNum.Clone();
+                ho_TopRegionsTemp.Dispose();
+                ho_BottomRegionsTemp.Dispose();
                 ho_RegionsOfBinaryThreshold.Dispose();
                 ho_ConnectedRegions.Dispose();
+                ho_SelectedRegions1.Dispose();
                 ho_SortedRegions.Dispose();
                 ho_TopEdgeRegion.Dispose();
                 ho_BottomEdgeRegion.Dispose();
@@ -25856,8 +25890,11 @@ namespace _6
             }
             catch (HalconException HDevExpDefaultException)
             {
+                ho_TopRegionsTemp.Dispose();
+                ho_BottomRegionsTemp.Dispose();
                 ho_RegionsOfBinaryThreshold.Dispose();
                 ho_ConnectedRegions.Dispose();
+                ho_SelectedRegions1.Dispose();
                 ho_SortedRegions.Dispose();
                 ho_TopEdgeRegion.Dispose();
                 ho_BottomEdgeRegion.Dispose();
@@ -27937,10 +27974,10 @@ namespace _6
                     out ho_RegionFillUp, out ho_RegionOpening, hv_width, hv_height, hv_mainLineNum,
                     hv_modelIDOfTop, hv_isBackDetect, hv_isTopWaferExist, hv_isBottomWaferExist,
                     hv_isUsingChinese, hv_windowHandle, hv_widthResolution_COPY_INP_TMP, hv_heightResolution_COPY_INP_TMP,
-                    hv_edgeSmallDefectDetectDepth, hv_twoMainLineDistance_COPY_INP_TMP, out hv_isGetTRRegionReturn,
-                    out hv_isFoundTopEdgeRegionOut, out hv_isFoundBottomEdgeRegionOut, out hv_isException,
-                    out hv_exceptionInfo, out hv_AngleTBX, out hv_AngleBTX, out hv_isBottomWaferFound,
-                    out hv_regionNumber);
+                    hv_edgeSmallDefectDetectDepth, hv_twoMainLineDistance_COPY_INP_TMP, hv_minimumArea,
+                    hv_maxArea, out hv_isGetTRRegionReturn, out hv_isFoundTopEdgeRegionOut,
+                    out hv_isFoundBottomEdgeRegionOut, out hv_isException, out hv_exceptionInfo,
+                    out hv_AngleTBX, out hv_AngleBTX, out hv_isBottomWaferFound, out hv_regionNumber);
                 if ((int)(hv_isGetTRRegionReturn) != 0)
                 {
                     ho_TopMainLineRegions.Dispose();
