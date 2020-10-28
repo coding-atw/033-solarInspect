@@ -115,7 +115,26 @@ namespace _6
             mainForm.TotalEmptyPlateCountPositiveA = 0;
 
             mainForm.ClearAllCurrentClusterStatePositiveA(1);
+            Config.WriteIniData("Config", "TotalCount_PositiveA", lblTotalCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "NGTotalCount_PositiveA", lblNGTotalCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "MajorFailureCount_PositiveA", lblMajorFailureCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmShiftingCount_PositiveA", lblFilmShiftingCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmMissCount_PositiveA", lblFilmMissCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmShiftingHeadAndTailCountPositiveA", lblFilmShiftingHeadAndTailCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "DistanceNGCount_PositiveA", lblDistanceNGCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "EdgeDefectCount_PositiveA", lblEdgeDefectCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "SurfaceDefectCount_PositiveA", lblSurfaceDefectCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "BrokenLineCount_PositiveA", lblBrokenLineCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "StartWeldingNGCount_PositiveA", lblStartWeldingNGCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "SurfaceColorDiffCount_PositiveA", lblSurfaceColorDiffCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmShiftingHeadAndTailCountNegativeA", lblCellMissingCountPositiveA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "DistanceNGCount_NegativeA", lblAlgorithmExceptionCountPositiveA.Text, mainForm.defaultRecipePath);
+
+
             
+
+           
+           
             mainForm.IsFirstWaferOfFirstClassPositiveA = false;
         }
         public void ClearStaticsPositiveB()//清空B正面数据
@@ -150,6 +169,21 @@ namespace _6
             mainForm.ClearAllCurrentClusterStatePositiveB(1);
 
             mainForm.IsFirstWaferOfFirstClassPositiveB = false;
+            Config.WriteIniData("Config", "TotalCount_PositiveB", lblTotalCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "NGTotalCount_PositiveB", lblNGTotalCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "MajorFailureCount_PositiveB", lblMajorFailureCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmShiftingCount_PositiveB", lblFilmShiftingCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmMissCount_PositiveB", lblFilmMissCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmShiftingHeadAndTailCountPositiveB", lblFilmShiftingHeadAndTailCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "DistanceNGCount_PositiveB", lblDistanceNGCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "EdgeDefectCount_PositiveB", lblEdgeDefectCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "SurfaceDefectCount_PositiveB", lblSurfaceDefectCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "BrokenLineCount_PositiveB", lblBrokenLineCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "StartWeldingNGCount_PositiveB", lblStartWeldingNGCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "SurfaceColorDiffCount_PositiveB", lblSurfaceColorDiffCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmShiftingHeadAndTailCountNegativeB", lblCellMissingCountPositiveB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "DistanceNGCount_NegativeB", lblAlgorithmExceptionCountPositiveB.Text, mainForm.defaultRecipePath);
+
         }
         public void ClearStaticsNegativeA()//清空A背面数据
         {
@@ -181,6 +215,17 @@ namespace _6
             mainForm.ClearAllCurrentClusterStateNegativeA(1);
 
             mainForm.IsFirstWaferOfFirstClassNegativeA = false;
+            Config.WriteIniData("Config", "TotalCount_NegativeA", lblTotalCountNegativeA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "NGTotalCount_NegativeA", lblNGTotalCountNegativeA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "MajorFailureCount_NegativeA", lblMajorFailureCountNegativeA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmShiftingCount_NegativeA", lblFilmShiftingCountNegativeA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmMissCount_NegativeA", lblFilmMissCountNegativeA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "EdgeDefectCount_NegativeA", lblEdgeDefectCountNegativeA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "SurfaceDefectCount_NegativeA", lblSurfaceDefectCountNegativeA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "BrokenLineCount_NegativeA", lblBrokenLineCountNegativeA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "StartWeldingNGCount_NegativeA", lblStartWeldingNGCountNegativeA.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "SurfaceColorDiffCount_NegativeA", lblSurfaceColorDiffCountNegativeA.Text, mainForm.defaultRecipePath);
+
         }
         public void ClearStaticsNegativeB()//清空B背面数据
         {
@@ -213,6 +258,17 @@ namespace _6
 
 
             mainForm.IsFirstWaferOfFirstClassNegativeB = false;
+            Config.WriteIniData("Config", "TotalCount_NegativeB", lblTotalCountNegativeB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "NGTotalCount_NegativeB", lblNGTotalCountNegativeB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "MajorFailureCount_NegativeB", lblMajorFailureCountNegativeB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmShiftingCount_NegativeB", lblFilmShiftingCountNegativeB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "FilmMissCount_NegativeB", lblFilmMissCountNegativeB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "EdgeDefectCount_NegativeB", lblEdgeDefectCountNegativeB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "SurfaceDefectCount_NegativeB", lblSurfaceDefectCountNegativeB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "BrokenLineCount_NegativeB", lblBrokenLineCountNegativeB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "StartWeldingNGCount_NegativeB", lblStartWeldingNGCountNegativeB.Text, mainForm.defaultRecipePath);
+            Config.WriteIniData("Config", "SurfaceColorDiffCount_NegativeB", lblSurfaceColorDiffCountNegativeB.Text, mainForm.defaultRecipePath);
+
         }
         public void btnClearStaticsPositiveA_Click(object sender, EventArgs e)
         {

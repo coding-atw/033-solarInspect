@@ -1,5 +1,5 @@
-﻿//#define Dalsa
-#define Dahua
+﻿#define Dalsa
+//#define Dahua
 //#define HikVision
 using System;
 using System.Collections.Generic;
@@ -5997,8 +5997,8 @@ namespace _6
                     var EndMillisecond = DateTime.Now.Millisecond;
                     var EndTotalTime = EndMillisecond + EndSecond * 1000;
                     var SubTime = EndTotalTime - StartTotalTime;
-                    Global.SaveLog("D:\\Program Files\\Config\\033\\A时间.txt",
-                                          DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") +"---" +Convert.ToString( SubTime));
+                    //Global.SaveLog("D:\\Program Files\\Config\\033\\A时间.txt",
+                    //                      DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") +"---" +Convert.ToString( SubTime));
                     //MBB头尾膜偏信息整理
                     //if (Convert.ToInt32(Global.mainLineNum) >= 9)
                     //{
@@ -6499,7 +6499,111 @@ namespace _6
 
                             IsCellLackA = true;
                             SingleClassCellMissingNGFlagArrayPositiveA[WaferIDPositiveA - 1] = true;
+                            if (WaferIDPositiveA == WaferCountPerClass+1)
+                            {
+                                #region 上串检测数据统计汇总
+                                //TotalAlgorithmExceptionCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassAlgorithmExceptionNGFlagArrayPositiveA);
+                                //TotalCellMissingCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassCellMissingNGFlagArrayPositiveA);
+                                //TotalFilmShiftingCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassFilmShiftingFlagArrayPositiveA);
+                                //TotalFilmMissCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassFilmMissFlagArrayPositiveA);
+                                //TotalFilmShiftingOfHeadAndTailCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassFilmShiftingOfHeadAndTailFlagArrayPositiveA);
+                                //TotalDistanceNGCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassDistanceNGFlagArrayPositiveA);
+                                //TotalEdgeDefectCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassEdgeDefectFlagArrayPositiveA);
+                                //TotalSurfaceDefectCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassSurfaceDefectFlagArrayPositiveA) + StaticTrueCountInFlagArray(SingleClassSurfaceScratchFlagArrayPositiveA);
+                                //TotalBrokenLineCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassBrokenLineFlagArrayPositiveA);
+                                //TotalStartingWeldingNGCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassStargingWeldingNGFlagArrayPositiveA);
+                                //TotalEmptyPlateCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassEmptyPlateFlagArrayPositiveA);
 
+                                //++TotalCountPositiveA;
+
+                                //if ((Convert.ToInt32(TotalFilmShiftingCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalFilmMissCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalFilmShiftingOfHeadAndTailCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalDistanceNGCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalEdgeDefectCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalSurfaceDefectCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalBrokenLineCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalStartingWeldingNGCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalAlgorithmExceptionCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalCellMissingCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalEmptyPlateCountPerClassPositiveA > 0)) > 0
+                                //    || (SingleClassSurfaceMeanGrayArrayPositiveA.Max() - SingleClassSurfaceMeanGrayArrayPositiveA.Min()) >= SurfaceColorDiffGrayThreshPositiveA
+                                //    )
+                                //{
+                                //    HistoryNGPositiveAList.Add(HistoryNGPositiveA);
+                                //    //AddNGHistoryRow("A", HistoryNGPositiveA);
+                                //    //RefreshNGIfo(0, HistoryNGAList);
+                                //    HistoryNGPositiveA = new string[WaferCountPerClass + 3];
+                                //    ++NGTotalCountPositiveA;
+                                //    if ((Convert.ToInt32(TotalFilmShiftingCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalFilmMissCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalFilmShiftingOfHeadAndTailCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalDistanceNGCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalEdgeDefectCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalSurfaceDefectCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalAlgorithmExceptionCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalCellMissingCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalBrokenLineCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalStartingWeldingNGCountPerClassPositiveA > 0)
+                                //    + Convert.ToInt32(TotalEmptyPlateCountPerClassPositiveA > 0)) > 1)
+                                //    {
+                                //        ++MajorFailureCountPositiveA;
+                                //    }
+                                //    //暂时先用背面片间距计数代替正面异常计数
+                                //    if (TotalAlgorithmExceptionCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalDistanceNGCountNegativeA;
+                                //    }
+                                //    //用背面头尾计数代替正面少片计数
+                                //    if (TotalCellMissingCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalFilmShiftingOfHeadAndTailCountNegativeA;
+                                //    }
+                                //    if (TotalFilmShiftingCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalFilmShiftingCountPositiveA;
+                                //    }
+                                //    if (TotalFilmMissCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalFilmMissCountPositiveA;
+                                //    }
+                                //    if (TotalFilmShiftingOfHeadAndTailCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalFilmShiftingOfHeadAndTailCountPositiveA;
+                                //    }
+                                //    if (TotalDistanceNGCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalDistanceNGCountPositiveA;
+                                //    }
+                                //    if (TotalEdgeDefectCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalEdgeDefectCountPositiveA;
+                                //    }
+                                //    if (TotalSurfaceDefectCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalSurfaceDefectCountPositiveA;
+                                //    }
+                                //    if (TotalBrokenLineCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalBrokenLineCountPositiveA;
+                                //    }
+                                //    if (TotalStartingWeldingNGCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalStartingWeldingNGCountPositiveA;
+                                //    }
+                                //    if (TotalEmptyPlateCountPerClassPositiveA > 0)
+                                //    {
+                                //        ++TotalEmptyPlateCountPositiveA;
+                                //    }
+                                //    if ((SingleClassSurfaceMeanGrayArrayPositiveA.Max() - SingleClassSurfaceMeanGrayArrayPositiveA.Min()) >= SurfaceColorDiffGrayThreshPositiveA)
+                                //    {
+                                //        ++TotalSurfaceColorDiffCountPositiveA;
+                                //    }
+                                //}
+                                //idOfPositiveA++;
+                                //WaferIDPositiveA = 1;
+                                #endregion
+                            }
                             //HOperatorSet.GenEmptyObj(out tempCellMissImagePositiveA);
                             //HOperatorSet.CopyImage(ho_MainImagePositiveA, out tempCellMissImagePositiveA);
                             //lock (LockObjectCellMissImageQueuePositiveA)
@@ -7863,7 +7967,7 @@ namespace _6
                     if (singleClassNGPositiveAStr != null)
                     {
                         idOfPositiveA++;
-                        singleClassNGPositiveA.UpdateDone = false;
+                        singleClassNGPositiveA.UpdateDone = true;
                         singleClassNGPositiveAList.Add(singleClassNGPositiveA);
                     }
 
@@ -8115,8 +8219,8 @@ namespace _6
                     var EndTotalTime = EndMillisecond + EndSecond * 1000;
                     var SubTime = EndTotalTime - StartTotalTime;
                     label1.Text = SubTime.ToString();
-                    Global.SaveLog("D:\\Program Files\\Config\\033\\B时间.txt",
-                                          DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "---" + Convert.ToString(SubTime));
+                    //Global.SaveLog("D:\\Program Files\\Config\\033\\B时间.txt",
+                    //                      DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "---" + Convert.ToString(SubTime));
 
                     //if (Convert.ToInt32(Global.mainLineNum) >= 9)
                     //{
@@ -9962,7 +10066,7 @@ namespace _6
                     if (singleClassNGPositiveBStr != null)
                     {
                         idOfPositiveB++;
-                        singleClassNGPositiveB.UpdateDone = false;
+                        singleClassNGPositiveB.UpdateDone = true;
                         singleClassNGPositiveBList.Add(singleClassNGPositiveB);
                     }
                     singleClassNGPositiveB = new SingleClassNG();
