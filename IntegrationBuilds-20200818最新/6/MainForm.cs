@@ -1562,13 +1562,25 @@ namespace _6
                     //        DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "开始");
                    isDone = true;
                     saveTotalStatisticsLog();
-                    
-                    string aa = DateTime.Now.ToString("yyyy_MMdd_HH");
-                    string destFileName = "D:\\Program Files\\Config\\033\\班次记录" + aa + ".txt";
-                    
-                    if (System.IO.File.Exists("D:\\Program Files\\Config\\033\\班次记录.txt")&& !System.IO.File.Exists(destFileName))
+                    if (Global.isEnglish == "0")
                     {
-                        System.IO.File.Move("D:\\Program Files\\Config\\033\\班次记录.txt", destFileName);
+                        string aa = DateTime.Now.ToString("yyyy_MMdd_HH");
+                        string destFileName = "D:\\Program Files\\Config\\033\\班次记录" + aa + ".txt";
+
+                        if (System.IO.File.Exists("D:\\Program Files\\Config\\033\\班次记录.txt") && !System.IO.File.Exists(destFileName))
+                        {
+                            System.IO.File.Move("D:\\Program Files\\Config\\033\\班次记录.txt", destFileName);
+                        }
+                    }
+                    else
+                    {
+                        string aa = DateTime.Now.ToString("yyyy_MMdd_HH");
+                        string destFileName = "D:\\Program Files\\Config\\033\\Class Record" + aa + ".txt";
+
+                        if (System.IO.File.Exists("D:\\Program Files\\Config\\033\\Class Record.txt") && !System.IO.File.Exists(destFileName))
+                        {
+                            System.IO.File.Move("D:\\Program Files\\Config\\033\\Class Record.txt", destFileName);
+                        }
                     }
                     mfNGStatisticsInterface.ClearStaticsPositiveA();
                     mfNGStatisticsInterface.ClearStaticsPositiveB();
