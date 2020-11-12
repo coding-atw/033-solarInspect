@@ -354,9 +354,9 @@ namespace _6
             this.lblVersion.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.Location = new System.Drawing.Point(3, 774);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(127, 23);
+            this.lblVersion.Size = new System.Drawing.Size(126, 23);
             this.lblVersion.TabIndex = 3;
-            this.lblVersion.Text = "1.1.1.201021";
+            this.lblVersion.Text = "1.1.1.201102";
             // 
             // pnlMainFormContentView
             // 
@@ -434,7 +434,7 @@ namespace _6
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.DarkGray;
-            this.ClientSize = new System.Drawing.Size(985, 365);
+            this.ClientSize = new System.Drawing.Size(977, 357);
             this.ControlBox = false;
             this.Controls.Add(this.pnlMainFormContentView);
             this.Controls.Add(this.pnlMainFormMenu);

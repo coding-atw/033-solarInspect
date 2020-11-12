@@ -1,5 +1,5 @@
-﻿#define Dalsa
-//#define Dahua
+﻿//#define Dalsa
+#define Dahua
 //#define HikVision
 using System;
 using System.Collections.Generic;
@@ -1343,7 +1343,7 @@ namespace _6
                 //Array.Clear(b, 0, pt.m_BuffersPositiveA.Width * pt.m_BuffersPositiveA.Height * 3);
                 //Marshal.Copy(b, 0, pt.imagedataPositiveA, pt.m_BuffersPositiveA.Width * pt.m_BuffersPositiveA.Height * 3);
 
-                //pt.m_BuffersPositiveA.Clear(pt.m_BuffersPositiveA.Index);
+                pt.m_BuffersPositiveA.Clear(pt.m_BuffersPositiveA.Index);
 
             }
             catch (Exception ex)
@@ -1395,7 +1395,7 @@ namespace _6
                 //        pt.ImageQueuePositiveB.Enqueue(pt.tempImageFromCameraPositiveB);
                 //    }
                 //}
-                //pt.m_BuffersPositiveB.Clear(pt.m_BuffersPositiveB.Index);
+                pt.m_BuffersPositiveB.Clear(pt.m_BuffersPositiveB.Index);
             }
             catch (Exception ex)
             {
@@ -5183,6 +5183,19 @@ namespace _6
             //List<Control> lblPositiveInterfaceCurrentClusterTypeAList = new List<Control>();
             //getControlsByKeyForPositiveA(this.pnlMainFormContentView, "lblPositiveInterfaceCurrentClusterStateA", lblPositiveInterfaceCurrentClusterStateAList);
             //getControlsByKeyForPositiveA(this.pnlMainFormContentView, "lblPositiveInterfaceCurrentClusterTypeA", lblPositiveInterfaceCurrentClusterTypeAList);
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA1.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA1.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA2.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA2.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA3.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA3.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA4.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA4.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA5.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA5.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA6.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA6.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA7.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA7.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA8.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA8.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA9.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA9.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA10.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA10.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA11.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA11.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA12.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA12.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeA13.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeA13.Text;
 
             for (int i = 1; i < lastID; ++i)
             {
@@ -5257,7 +5270,19 @@ namespace _6
             //List<Control> lblPositiveInterfaceCurrentClusterTypeBList = new List<Control>();
             //getControlsByKeyForPositiveB(this.pnlMainFormContentView, "lblPositiveInterfaceCurrentClusterStateB", lblPositiveInterfaceCurrentClusterStateBList);
             //getControlsByKeyForPositiveB(this.pnlMainFormContentView, "lblPositiveInterfaceCurrentClusterTypeB", lblPositiveInterfaceCurrentClusterTypeBList);
-
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB1.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB1.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB2.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB2.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB3.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB3.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB4.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB4.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB5.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB5.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB6.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB6.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB7.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB7.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB8.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB8.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB9.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB9.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB10.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB10.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB11.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB11.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB12.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB12.Text;
+            mfPositiveInterface.lblPositiveInterfaceLastClusterTypeB13.Text = mfPositiveInterface.lblPositiveInterfaceCurrentClusterTypeB13.Text;
             for (int i = 1; i < lastID; ++i)
             {
                 ResetSingleStatePositiveB(i, lblPositiveInterfaceCurrentClusterStateBList, lblPositiveInterfaceCurrentClusterTypeBList);
