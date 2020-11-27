@@ -1552,8 +1552,6 @@ namespace _6
             CsvtimePositive = DateTime.Now.ToString("HHmmss");
             //CsvCreate();
             string dd = DateTime.Now.ToString("HH:mm:ss");
-
-
             if ((dd.CompareTo("08:00:00") > 0 && dd.CompareTo("08:00:30") < 0) || (dd.CompareTo("20:00:00") > 0 && dd.CompareTo("20:00:05") < 0))
             {
                 if (!isDone)
@@ -2062,7 +2060,7 @@ namespace _6
                                 //// Allocate objects
                                 //m_AcquisitionPositiveA = new SapAcqDevice(m_ServerLocationPositiveA);
                    
-                                m_BuffersPositiveA = new SapBuffer(20, m_AcquisitionPositiveA, SapBuffer.MemoryType.ScatterGather);
+                                m_BuffersPositiveA = new SapBufferWithTrash(2, m_AcquisitionPositiveA, SapBuffer.MemoryType.ScatterGather);
                                 m_XferPositiveA = new SapAcqDeviceToBuf(m_AcquisitionPositiveA, m_BuffersPositiveA);
                                // view = new SapView(m_BuffersPositiveA);
 
@@ -2131,7 +2129,7 @@ namespace _6
                                 //// Allocate objects
                                 //m_AcquisitionPositiveB= new SapAcqDevice(m_ServerLocationPositiveB);
 
-                                m_BuffersPositiveB = new SapBuffer(20, m_AcquisitionPositiveB, SapBuffer.MemoryType.ScatterGather);
+                                m_BuffersPositiveB = new SapBuffer(2, m_AcquisitionPositiveB, SapBuffer.MemoryType.ScatterGather);
                                 m_XferPositiveB = new SapAcqDeviceToBuf(m_AcquisitionPositiveB, m_BuffersPositiveB);
 
                                 m_XferPositiveB.Pairs[0].EventType = SapXferPair.XferEventType.EndOfFrame;
@@ -3334,24 +3332,7 @@ namespace _6
             Global.isUsingDistanceDetectPositiveB = "1";
             Global.isUsingDistanceDetectNegativeA = "1";
             Global.isUsingDistanceDetectNegativeB = "1";
-            //背面关闭起焊点等功能
-            if(Convert.ToInt32( Global.mainLineNum )>= 9 )
-            {
-                Global.isUsingStartWeldingDetectNegativeA = "0";
-                Global.isUsingStartWeldingDetectNegativeB = "0";
-
-                Global.isUsingEdgeDefectDetectNegativeA = "0";
-                Global.isUsingEdgeDefectDetectNegativeB = "0";
-
-                Global.isUsingSurfaceColorDiffDetectNegativeA = "0";
-                Global.isUsingSurfaceColorDiffDetectNegativeB = "0";
-
-                //Global.isUsingSurfaceDefectDetectNegativeA = "0";
-                //Global.isUsingSurfaceDefectDetectNegativeB = "0";
-
-                Global.isUsingBrokenLineDetectNegativeA = "0";
-                Global.isUsingBrokenLineDetectNegativeB = "0";
-            }
+            
             //刷新配方参数
             RefreshRecipeGlobalParameter();
             RefreshRecipeParameterPositiveA();
@@ -3377,6 +3358,47 @@ namespace _6
             mfUserManagerInterface = new MainFormUserManager(this);
             mfNGInfoInterface = new MainFormNGInfoInterface(this);
 
+            //背面关闭起焊点等功能
+            if (Convert.ToInt32(Global.mainLineNum) >= 9)
+            {
+                Global.isUsingStartWeldingDetectNegativeA = "0";
+                Global.isUsingStartWeldingDetectNegativeB = "0";
+
+                Global.isUsingEdgeDefectDetectNegativeA = "0";
+                Global.isUsingEdgeDefectDetectNegativeB = "0";
+
+                Global.isUsingSurfaceColorDiffDetectNegativeA = "0";
+                Global.isUsingSurfaceColorDiffDetectNegativeB = "0";
+
+                //Global.isUsingSurfaceDefectDetectNegativeA = "0";
+                //Global.isUsingSurfaceDefectDetectNegativeB = "0";
+
+                Global.isUsingBrokenLineDetectNegativeA = "0";
+                Global.isUsingBrokenLineDetectNegativeB = "0";
+
+                mfParameterInterface.txtStartWeldingDistanceMinThresh_PositiveA.Enabled = false;
+                mfParameterInterface.txtStartWeldingDistanceMinThresh_PositiveB.Enabled = false;
+                mfParameterInterface.txtStartWeldingDistanceMinThresh_NegativeA.Enabled = false;
+                mfParameterInterface.txtStartWeldingDistanceMinThresh_NegativeB.Enabled = false;
+
+                mfParameterInterface.txtStartWeldingDistanceMaxThresh_PositiveA.Enabled = false;
+                mfParameterInterface.txtStartWeldingDistanceMaxThresh_PositiveB.Enabled = false;
+                mfParameterInterface.txtStartWeldingDistanceMaxThresh_NegativeA.Enabled = false;
+                mfParameterInterface.txtStartWeldingDistanceMaxThresh_NegativeB.Enabled = false;
+            }
+            else
+            {
+                mfParameterInterface.txtStartWeldingDistanceMinThresh_PositiveA.Enabled = true;
+                mfParameterInterface.txtStartWeldingDistanceMinThresh_PositiveB.Enabled = true;
+                mfParameterInterface.txtStartWeldingDistanceMinThresh_NegativeA.Enabled = true;
+                mfParameterInterface.txtStartWeldingDistanceMinThresh_NegativeB.Enabled = true;
+
+                mfParameterInterface.txtStartWeldingDistanceMaxThresh_PositiveA.Enabled = true;
+                mfParameterInterface.txtStartWeldingDistanceMaxThresh_PositiveB.Enabled = true;
+                mfParameterInterface.txtStartWeldingDistanceMaxThresh_NegativeA.Enabled = true;
+                mfParameterInterface.txtStartWeldingDistanceMaxThresh_NegativeB.Enabled = true;
+            }
+            RefreshTcpIPLabelState();
             LoadModel();
 
             if (Convert.ToInt32(Global.isEnglish) == 0)
@@ -4569,6 +4591,7 @@ namespace _6
             SingleClassDistanceNGFlagArrayNegativeA = new bool[WaferCountPerClass - 1 + 3];
             SingleClassEdgeDefectFlagArrayNegativeA = new bool[WaferCountPerClass + 3];
             SingleClassSurfaceDefectFlagArrayNegativeA = new bool[WaferCountPerClass + 3];
+            SingleClassSurfaceScratchFlagArrayNegativeA = new bool[WaferCountPerClass + 3];
             SingleClassBrokenLineFlagArrayNegativeA = new bool[WaferCountPerClass + 3];
             SingleClassStargingWeldingNGFlagArrayNegativeA = new bool[WaferCountPerClass + 3];
             SingleClassSurfaceMeanGrayArrayNegativeA.Clear();
@@ -5072,7 +5095,24 @@ namespace _6
                     }
                 );
         }
+        public void RefreshTcpIPLabelState()
+        {
+            if (Global.isUpperLink == "1")
+            {
+                mfPositiveInterface.lblTcpConnectedStateA.Visible = false;
+                mfPositiveInterface.lblTcpConnectedStateB.Visible = false;
+                mfNegativeInterface.lblTcpConnectedStateA.Visible = false;
+                mfNegativeInterface.lblTcpConnectedStateB.Visible = false;
+            }
+            else
+            {
+                mfPositiveInterface.lblTcpConnectedStateA.Visible = true;
+                mfPositiveInterface.lblTcpConnectedStateB.Visible = true;
+                mfNegativeInterface.lblTcpConnectedStateA.Visible = true;
+                mfNegativeInterface.lblTcpConnectedStateB.Visible = true;
+            }
 
+        }
         private void getControlsByKeyForNegativeA(Control objControl, string key, List<Control> controlList)
         {
             foreach (System.Windows.Forms.Control control in objControl.Controls)
@@ -16539,6 +16579,7 @@ namespace _6
 
         }
 
+        
         // A相机丢失回调
         private void OnConnectLossPositiveA(object sender, EventArgs e)
         {
@@ -18904,7 +18945,7 @@ namespace _6
                             DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + " Send Result:  " + d);
                     }
 
-                    if (Recv != null && Recv.Length > 6 && Recv.Substring(0, 2) == "01")
+                    if (Recv != null && Recv.Length >=5  && Recv.Substring(0, 2) == "01")
                     {
                         if (LastRecv != Recv.Substring(3, 2))
                         {
@@ -18920,7 +18961,7 @@ namespace _6
                             DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + " Send Result:  " + d);
                     }
 
-                    if (Recv != null && Recv.Length > 6 && Recv.Substring(0, 2) == "02")
+                    if (Recv != null && Recv.Length >= 5 && Recv.Substring(0, 2) == "02")
                     {
                         if (LastRecv != Recv.Substring(3, 2))
                         {
@@ -18936,7 +18977,7 @@ namespace _6
                             DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + " Send Result:  " + d);
                     }
                     //读取第几片
-                    if (Recv != null && Recv.Length > 6 && Recv.Substring(0, 3) == "001")
+                    if (Recv != null && Recv.Length >= 5 && Recv.Substring(0, 3) == "001")
                     {
                         if (CellNumNegativeA != Recv.Substring(3, 2))
                         {
@@ -18956,7 +18997,7 @@ namespace _6
                             DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + " Send Result:  " + d);
                     }
 
-                    if (Recv != null && Recv.Length > 6 && Recv.Substring(0, 3) == "002")
+                    if (Recv != null && Recv.Length >= 5 && Recv.Substring(0, 3) == "002")
                     {
                         if (CellNumNegativeB != Recv.Substring(3, 2))
                         {
@@ -18988,19 +19029,13 @@ namespace _6
             }
           
         }
-        private void l2TCPClientPositiveA_DataReceived(object sender, L2TCPClient.DataReceivedEventArgs e)
+        private void l2TCPClientSend2PLC_DataReceived(object sender, L2TCPClient.DataReceivedEventArgs e)
         {
             Recv = System.Text.Encoding.Default.GetString(e.Data);
-
-            //if (e.Data ="OK")
-            //{
-            //    SendSuccess = true;
-            //}
-            //else
-            //{
-            //    SendSuccess = false;
-            //}
+            Global.SaveLog("D:\\Program Files\\Config\\033\\TcpIpStateLogReceive.txt",
+                        DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + " Receive:  " + Recv);
         }
+
     }
 }
 

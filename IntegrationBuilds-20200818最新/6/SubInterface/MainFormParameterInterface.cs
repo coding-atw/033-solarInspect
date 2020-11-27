@@ -2396,7 +2396,7 @@ namespace _6
                 #endregion
 
                 //背面关闭起焊点等功能
-                if (Convert.ToInt32(Global.mainLineNum) > 9)
+                if (Convert.ToInt32(Global.mainLineNum) >= 9)
                 {
                     Global.isUsingStartWeldingDetectNegativeA = "0";
                     Global.isUsingStartWeldingDetectNegativeB = "0";
@@ -2412,13 +2412,36 @@ namespace _6
 
                     Global.isUsingBrokenLineDetectNegativeA = "0";
                     Global.isUsingBrokenLineDetectNegativeB = "0";
+
+                    txtStartWeldingDistanceMinThresh_PositiveA.Enabled = false;
+                    txtStartWeldingDistanceMinThresh_PositiveB.Enabled = false;
+                    txtStartWeldingDistanceMinThresh_NegativeA.Enabled = false;
+                    txtStartWeldingDistanceMinThresh_NegativeB.Enabled = false;
+
+                    txtStartWeldingDistanceMaxThresh_PositiveA.Enabled = false;
+                    txtStartWeldingDistanceMaxThresh_PositiveB.Enabled = false;
+                    txtStartWeldingDistanceMaxThresh_NegativeA.Enabled = false;
+                    txtStartWeldingDistanceMaxThresh_NegativeB.Enabled = false;
+
+                }
+                else
+                {
+                    txtStartWeldingDistanceMinThresh_PositiveA.Enabled = true;
+                    txtStartWeldingDistanceMinThresh_PositiveB.Enabled = true;
+                    txtStartWeldingDistanceMinThresh_NegativeA.Enabled = true;
+                    txtStartWeldingDistanceMinThresh_NegativeB.Enabled = true;
+
+                    txtStartWeldingDistanceMaxThresh_PositiveA.Enabled = true;
+                    txtStartWeldingDistanceMaxThresh_PositiveB.Enabled = true;
+                    txtStartWeldingDistanceMaxThresh_NegativeA.Enabled = true;
+                    txtStartWeldingDistanceMaxThresh_NegativeB.Enabled = true;
                 }
                 mainForm.RefreshRecipeGlobalParameter();
                 mainForm.RefreshRecipeParameterPositiveA();
                 mainForm.RefreshRecipeParameterPositiveB();
                 mainForm.RefreshRecipeParameterNegativeA();
                 mainForm.RefreshRecipeParameterNegativeB();
-
+                mainForm.RefreshTcpIPLabelState();
                 mainForm.InitNGArray();
                 SaveDefaultRecipe();
                 if (Global.isEnglish=="0")
@@ -2783,6 +2806,8 @@ namespace _6
                 && (isNumberic(txtSurfaceDefectViceLineShieldRightPosOffSet_PositiveA.Text))
                 && (isNumberic(txtMaxAlamClusterCount_PositiveA.Text))
 
+                && (isNumberic(txtMainLineDistance.Text) || isDouble(txtMainLineDistance.Text))
+
                 && (isNumberic(txtTopShieldLengthOfTopRegion_PositiveB.Text) || isDouble(txtTopShieldLengthOfTopRegion_PositiveB.Text))
                 && (isNumberic(txtBottomShieldLengthOfTopRegion_PositiveB.Text) || isDouble(txtBottomShieldLengthOfTopRegion_PositiveB.Text))
                 && (isNumberic(txtTopShieldLengthOfBottomRegion_PositiveB.Text) || isDouble(txtTopShieldLengthOfBottomRegion_PositiveB.Text))
@@ -2917,7 +2942,15 @@ namespace _6
                 {
                     Config.WriteIniData("Config", "MainLineNum", "5", path);
                 }
-               
+
+                if (txtMainLineDistance.Text != "")
+                {
+                    Config.WriteIniData("Config", "MainLineDistance", txtMainLineDistance.Text, path);
+                }
+                else
+                {
+                    Config.WriteIniData("Config", "MainLineDistance", "16.8", path);
+                }
                 if (chxIsFullWafer.Checked)
                 {
                     Config.WriteIniData("Config", "IsFullWafer", "1", path);

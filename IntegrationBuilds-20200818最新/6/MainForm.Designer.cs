@@ -356,7 +356,7 @@ namespace _6
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(126, 23);
             this.lblVersion.TabIndex = 3;
-            this.lblVersion.Text = "1.1.1.201102";
+            this.lblVersion.Text = "1.1.1.201127";
             // 
             // pnlMainFormContentView
             // 
@@ -421,6 +421,7 @@ namespace _6
             this.l2TCPClientSend2PLC.Active = false;
             this.l2TCPClientSend2PLC.ServerIP = "172.168.155.201";
             this.l2TCPClientSend2PLC.ServerPort = 8501;
+            this.l2TCPClientSend2PLC.DataReceived += new L2TCPClient.L2TCPClient.DataReceivedEventHandler(this.l2TCPClientSend2PLC_DataReceived);
             // 
             // timer_AutoReadNGNum
             // 
@@ -434,7 +435,7 @@ namespace _6
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.DarkGray;
-            this.ClientSize = new System.Drawing.Size(977, 357);
+            this.ClientSize = new System.Drawing.Size(983, 363);
             this.ControlBox = false;
             this.Controls.Add(this.pnlMainFormContentView);
             this.Controls.Add(this.pnlMainFormMenu);
