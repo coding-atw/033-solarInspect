@@ -236,49 +236,49 @@ namespace _6
 
         // Local procedures 
         public void ProcessingImage(HObject ho_oriImage, out HObject ho_totalFilmShiftingRegionOut,
-     out HObject ho_totalFilmMissRegionOut, out HObject ho_totalHeadAndTailFilmShiftingRegionOut,
-     out HObject ho_totalEdgeDefectRegionOut, out HObject ho_totalSurfaceDefectRegionOut,
-     out HObject ho_totalBrokenLineRegionOut, HTuple hv_width, HTuple hv_height,
-     HTuple hv_windowHandle, HTuple hv_mainLineNum, HTuple hv_isFullWafer, HTuple hv_subMainLineNum,
-     HTuple hv_isBackDetect, HTuple hv_isUsingWidthResolutionCalibrate, HTuple hv_widthResolution,
-     HTuple hv_waferWidth, HTuple hv_isUsingHeightResolutionCalibrate, HTuple hv_heightResolution,
-     HTuple hv_viceLineInterval, HTuple hv_isUsingFilmShiftingDetect, HTuple hv_topShieldLengthOfTopRegion,
-     HTuple hv_bottomShieldLengthOfTopRegion, HTuple hv_topShieldLengthOfBottomRegion,
-     HTuple hv_bottomShieldLengthOfBottomRegion, HTuple hv_locationMainLineThresh,
-     HTuple hv_filmWidthThresh, HTuple hv_filmWidthOffSet, HTuple hv_firstDetectPosForTopRegion,
-     HTuple hv_secondDetectPosForTopRegion, HTuple hv_firstDetectPosForBottomRegion,
-     HTuple hv_secondDetectPosForBottomRegion, HTuple hv_isUsingFilmMissDetect, HTuple hv_weldWidthThresh,
-     HTuple hv_isUsingHeadAndTailFilmShiftingDetect, HTuple hv_headAndTailFilmWidthThresh,
-     HTuple hv_headAndTailFilmShieldLength, HTuple hv_headAndTailFilmDetectRange,
-     HTuple hv_isUsingWaferEdgeCalibration, HTuple hv_locationWaferEdgeThresh, HTuple hv_waferEdgeCalibrationRegionDilationPixel,
-     HTuple hv_isUsingDistanceDetect, HTuple hv_minimumDistanceThresh, HTuple hv_maxDistanceThresh,
-     HTuple hv_classDistanceThresh, HTuple hv_isUsingEdgeDefectDetect, HTuple hv_edgeBigDefectWidthThresh,
-     HTuple hv_edgeBigDefectHeightThresh, HTuple hv_edgeSmallDefectDetectDepth, HTuple hv_edgeSmallDefectGrayThresh,
-     HTuple hv_edgeSmallDefectWidthThresh, HTuple hv_edgeSmallDefectHeightThresh,
-     HTuple hv_edgeSmallDefectGrayMeanThresh, HTuple hv_edgeSmallDefectGrayDeviationThresh,
-     HTuple hv_cornerDefectAreaRatioThresh, HTuple hv_isUsingSurfaceDefectDetect,
-     HTuple hv_surfaceDefectGrayThresh, HTuple hv_surfaceDefectWidthThresh, HTuple hv_surfaceDefectHeightThresh,
-     HTuple hv_surfaceDefectDetectIndentDepth, HTuple hv_filmMissShieldLength, HTuple hv_filmMissShieldDetectRange,
-     HTuple hv_surfaceDefectViceLineShieldRightPosOffSet, HTuple hv_surfaceScratchGrayThresh,
-     HTuple hv_surfaceScratchWidthThresh, HTuple hv_surfaceScratchHeightThresh, HTuple hv_isUsingStartWeldingDetect,
-     HTuple hv_startWeldingDistanceMaxThresh, HTuple hv_startWeldingDistanceMinThresh,
-     HTuple hv_isUsingBrokenLineDetect, HTuple hv_brokenLineGrayThresh, HTuple hv_brokenLineWidthThresh,
-     HTuple hv_brokenLineHeightThresh, HTuple hv_brokenLineDetectIndentDepth, HTuple hv_isUsingSurfaceColorDiffDetect,
-     HTuple hv_isUsingChinese, HTuple hv_weldShieldLength, HTuple hv_grayOpenHeight,
-     HTuple hv_twoMainLineDistance, out HTuple hv_isException, out HTuple hv_exceptionInfo,
-     out HTuple hv_isTopWaferExist, out HTuple hv_isBottomWaferExist, out HTuple hv_isWidthResolutionCalibrateFinish,
-     out HTuple hv_widthResolutionOut, out HTuple hv_isHeightResolutionCalibrateFinish,
-     out HTuple hv_heightResolutionOut, out HTuple hv_isFilmShiftingOfTopWafer, out HTuple hv_isFilmShiftingOfBottomWafer,
-     out HTuple hv_isFilmMissOfTopWafer, out HTuple hv_isFilmMissOfBottomWafer, out HTuple hv_isHeadAndTailFilmShiftingOfTopWafer,
-     out HTuple hv_isHeadAndTailFilmShiftingOfBottomWafer, out HTuple hv_isEdgeDefectOfTopWafer,
-     out HTuple hv_isEdgeDefectOfBottomWafer, out HTuple hv_isDistanceNG, out HTuple hv_isNextClass,
-     out HTuple hv_isSurfaceDefectOfTopWafer, out HTuple hv_isSurfaceDefectOfBottomWafer,
-     out HTuple hv_isSurfaceScratchOfTopWafer, out HTuple hv_isSurfaceScratchOfBottomWafer,
-     out HTuple hv_isBrokenLineOfTopWafer, out HTuple hv_isBrokenLineOfBottomWafer,
-     out HTuple hv_isStartWeldingNGOfBottomWafer, out HTuple hv_surfaceMeanGrayOfTopWaferOut,
-     out HTuple hv_surfaceMeanGrayOfBottomWaferOut, out HTuple hv_IsTopWaferNG, out HTuple hv_IsBottomWaferNG,
-     out HTuple hv_IsHeadOfWaferNG, out HTuple hv_IsTailOfWaferNG, out HTuple hv_filmDistanceArrayOfTopWafer,
-     out HTuple hv_filmDistanceArrayOfBottomWafer)
+       out HObject ho_totalFilmMissRegionOut, out HObject ho_totalHeadAndTailFilmShiftingRegionOut,
+       out HObject ho_totalEdgeDefectRegionOut, out HObject ho_totalSurfaceDefectRegionOut,
+       out HObject ho_totalBrokenLineRegionOut, HTuple hv_width, HTuple hv_height,
+       HTuple hv_windowHandle, HTuple hv_mainLineNum, HTuple hv_isFullWafer, HTuple hv_subMainLineNum,
+       HTuple hv_isBackDetect, HTuple hv_isUsingWidthResolutionCalibrate, HTuple hv_widthResolution,
+       HTuple hv_waferWidth, HTuple hv_isUsingHeightResolutionCalibrate, HTuple hv_heightResolution,
+       HTuple hv_viceLineInterval, HTuple hv_isUsingFilmShiftingDetect, HTuple hv_topShieldLengthOfTopRegion,
+       HTuple hv_bottomShieldLengthOfTopRegion, HTuple hv_topShieldLengthOfBottomRegion,
+       HTuple hv_bottomShieldLengthOfBottomRegion, HTuple hv_locationMainLineThresh,
+       HTuple hv_filmWidthThresh, HTuple hv_filmWidthOffSet, HTuple hv_firstDetectPosForTopRegion,
+       HTuple hv_secondDetectPosForTopRegion, HTuple hv_firstDetectPosForBottomRegion,
+       HTuple hv_secondDetectPosForBottomRegion, HTuple hv_isUsingFilmMissDetect, HTuple hv_weldWidthThresh,
+       HTuple hv_isUsingHeadAndTailFilmShiftingDetect, HTuple hv_headAndTailFilmWidthThresh,
+       HTuple hv_headAndTailFilmShieldLength, HTuple hv_headAndTailFilmDetectRange,
+       HTuple hv_isUsingWaferEdgeCalibration, HTuple hv_locationWaferEdgeThresh, HTuple hv_waferEdgeCalibrationRegionDilationPixel,
+       HTuple hv_isUsingDistanceDetect, HTuple hv_minimumDistanceThresh, HTuple hv_maxDistanceThresh,
+       HTuple hv_classDistanceThresh, HTuple hv_isUsingEdgeDefectDetect, HTuple hv_edgeBigDefectWidthThresh,
+       HTuple hv_edgeBigDefectHeightThresh, HTuple hv_edgeSmallDefectDetectDepth, HTuple hv_edgeSmallDefectGrayThresh,
+       HTuple hv_edgeSmallDefectWidthThresh, HTuple hv_edgeSmallDefectHeightThresh,
+       HTuple hv_edgeSmallDefectGrayMeanThresh, HTuple hv_edgeSmallDefectGrayDeviationThresh,
+       HTuple hv_cornerDefectAreaRatioThresh, HTuple hv_isUsingSurfaceDefectDetect,
+       HTuple hv_surfaceDefectGrayThresh, HTuple hv_surfaceDefectWidthThresh, HTuple hv_surfaceDefectHeightThresh,
+       HTuple hv_surfaceDefectDetectIndentDepth, HTuple hv_filmMissShieldLength, HTuple hv_filmMissShieldDetectRange,
+       HTuple hv_surfaceDefectViceLineShieldRightPosOffSet, HTuple hv_surfaceScratchGrayThresh,
+       HTuple hv_surfaceScratchWidthThresh, HTuple hv_surfaceScratchHeightThresh, HTuple hv_isUsingStartWeldingDetect,
+       HTuple hv_startWeldingDistanceMaxThresh, HTuple hv_startWeldingDistanceMinThresh,
+       HTuple hv_isUsingBrokenLineDetect, HTuple hv_brokenLineGrayThresh, HTuple hv_brokenLineWidthThresh,
+       HTuple hv_brokenLineHeightThresh, HTuple hv_brokenLineDetectIndentDepth, HTuple hv_isUsingSurfaceColorDiffDetect,
+       HTuple hv_isUsingChinese, HTuple hv_weldShieldLength, HTuple hv_grayOpenHeight,
+       HTuple hv_twoMainLineDistance, out HTuple hv_isException, out HTuple hv_exceptionInfo,
+       out HTuple hv_isTopWaferExist, out HTuple hv_isBottomWaferExist, out HTuple hv_isWidthResolutionCalibrateFinish,
+       out HTuple hv_widthResolutionOut, out HTuple hv_isHeightResolutionCalibrateFinish,
+       out HTuple hv_heightResolutionOut, out HTuple hv_isFilmShiftingOfTopWafer, out HTuple hv_isFilmShiftingOfBottomWafer,
+       out HTuple hv_isFilmMissOfTopWafer, out HTuple hv_isFilmMissOfBottomWafer, out HTuple hv_isHeadAndTailFilmShiftingOfTopWafer,
+       out HTuple hv_isHeadAndTailFilmShiftingOfBottomWafer, out HTuple hv_isEdgeDefectOfTopWafer,
+       out HTuple hv_isEdgeDefectOfBottomWafer, out HTuple hv_isDistanceNG, out HTuple hv_isNextClass,
+       out HTuple hv_isSurfaceDefectOfTopWafer, out HTuple hv_isSurfaceDefectOfBottomWafer,
+       out HTuple hv_isSurfaceScratchOfTopWafer, out HTuple hv_isSurfaceScratchOfBottomWafer,
+       out HTuple hv_isBrokenLineOfTopWafer, out HTuple hv_isBrokenLineOfBottomWafer,
+       out HTuple hv_isStartWeldingNGOfBottomWafer, out HTuple hv_surfaceMeanGrayOfTopWaferOut,
+       out HTuple hv_surfaceMeanGrayOfBottomWaferOut, out HTuple hv_IsTopWaferNG, out HTuple hv_IsBottomWaferNG,
+       out HTuple hv_IsHeadOfWaferNG, out HTuple hv_IsTailOfWaferNG, out HTuple hv_filmDistanceArrayOfTopWafer,
+       out HTuple hv_filmDistanceArrayOfBottomWafer)
         {
 
 
@@ -21815,6 +21815,7 @@ namespace _6
             HTuple hv_TopEdgeRegionIsEqual = new HTuple(), hv_BottomEdgeRegionIsEqual = new HTuple();
             HTuple hv_TopRegionWidth = new HTuple(), hv_TopRegionHeight = new HTuple();
             HTuple hv_BottomRegionWidth = new HTuple(), hv_BottomRegionHeight = new HTuple();
+            HTuple hv_ValueTop = new HTuple(), hv_ValueBottom = new HTuple();
             HTuple hv_UsedThreshold1 = new HTuple(), hv_BigRegionNumForDistance = new HTuple();
             HTuple hv_TopRegionsIsEqual = null, hv_BottomRegionsIsEqual = null;
             HTuple hv_TopRegionsTempIsEqual = null, hv_TBottomRegionsTempIsEqual = null;
@@ -22078,6 +22079,40 @@ namespace _6
                                     }
                                 }
                             }
+
+                            HOperatorSet.RegionFeatures(ho_TopRegion, "rectangularity", out hv_ValueTop);
+                            HOperatorSet.RegionFeatures(ho_BottomRegion, "rectangularity", out hv_ValueBottom);
+                            if ((int)(new HTuple(hv_ValueTop.TupleGreater(0.9))) != 0)
+                            {
+                                {
+                                    HObject ExpTmpOutVar_0;
+                                    HOperatorSet.Intersection(ho_TopRegionsTemp, ho_TopRegion, out ExpTmpOutVar_0
+                                        );
+                                    ho_TopRegion.Dispose();
+                                    ho_TopRegion = ExpTmpOutVar_0;
+                                }
+                            }
+                            else
+                            {
+                                ho_TopRegion.Dispose();
+                                HOperatorSet.SelectObj(ho_SortedRegions, out ho_TopRegion, 1);
+                            }
+                            if ((int)(new HTuple(hv_ValueBottom.TupleGreater(0.9))) != 0)
+                            {
+                                {
+                                    HObject ExpTmpOutVar_0;
+                                    HOperatorSet.Intersection(ho_BottomRegionsTemp, ho_BottomRegion, out ExpTmpOutVar_0
+                                        );
+                                    ho_BottomRegion.Dispose();
+                                    ho_BottomRegion = ExpTmpOutVar_0;
+                                }
+                            }
+                            else
+                            {
+                                ho_BottomRegion.Dispose();
+                                HOperatorSet.SelectObj(ho_SortedRegions, out ho_BottomRegion, 2);
+                            }
+
                         }
                         else
                         {
@@ -25372,7 +25407,8 @@ namespace _6
             HTuple hv_MiddleCol = new HTuple(), hv_TopEdgeRegionIsEqual = new HTuple();
             HTuple hv_BottomEdgeRegionIsEqual = new HTuple(), hv_TopRegionWidth = new HTuple();
             HTuple hv_TopRegionHeight = new HTuple(), hv_BottomRegionWidth = new HTuple();
-            HTuple hv_BottomRegionHeight = new HTuple(), hv_isGetRegionReturn = new HTuple();
+            HTuple hv_BottomRegionHeight = new HTuple(), hv_ValueTop = new HTuple();
+            HTuple hv_ValueBottom = new HTuple(), hv_isGetRegionReturn = new HTuple();
             HTuple hv_TopArea = new HTuple(), hv_TopRow = new HTuple();
             HTuple hv_TopColumn = new HTuple(), hv_BottomArea = new HTuple();
             HTuple hv_BottomRow = new HTuple(), hv_BottomColumn = new HTuple();
@@ -25758,6 +25794,42 @@ namespace _6
                                     }
                                 }
                             }
+                            HOperatorSet.RegionFeatures(ho_TopRegion, "rectangularity", out hv_ValueTop);
+                            HOperatorSet.RegionFeatures(ho_BottomRegion, "rectangularity", out hv_ValueBottom);
+                            if ((int)(new HTuple(hv_ValueTop.TupleGreater(0.9))) != 0)
+                            {
+                                {
+                                    HObject ExpTmpOutVar_0;
+                                    HOperatorSet.Intersection(ho_TopRegionsTemp, ho_TopRegion, out ExpTmpOutVar_0
+                                        );
+                                    ho_TopRegion.Dispose();
+                                    ho_TopRegion = ExpTmpOutVar_0;
+                                }
+                            }
+                            else
+                            {
+                                ho_TopRegion.Dispose();
+                                HOperatorSet.SelectObj(ho_SortedRegions, out ho_TopRegion, 1);
+                            }
+                            if ((int)(new HTuple(hv_ValueBottom.TupleGreater(0.9))) != 0)
+                            {
+                                {
+                                    HObject ExpTmpOutVar_0;
+                                    HOperatorSet.Intersection(ho_BottomRegionsTemp, ho_BottomRegion, out ExpTmpOutVar_0
+                                        );
+                                    ho_BottomRegion.Dispose();
+                                    ho_BottomRegion = ExpTmpOutVar_0;
+                                }
+                            }
+                            else
+                            {
+                                ho_BottomRegion.Dispose();
+                                HOperatorSet.SelectObj(ho_SortedRegions, out ho_BottomRegion, 2);
+                            }
+                            //intersection (BottomRegionsTemp, BottomRegion, BottomRegion)
+
+                            //select_obj (SortedRegions, TopRegion, 1)
+                            //select_obj (SortedRegions, BottomRegion, 2)
                         }
                         else
                         {
@@ -25840,50 +25912,47 @@ namespace _6
                 }
 
                 //2020.08.26--添加区域判断：是否是真实区域
-                if ((int)(new HTuple(hv_isBackDetect.TupleEqual(0))) != 0)
+                if ((int)((new HTuple((new HTuple(hv_isTopWaferExist.TupleEqual(1))).TupleAnd(
+                    new HTuple(hv_isBottomWaferExist.TupleEqual(1))))).TupleAnd(new HTuple(hv_BigRegionNum.TupleEqual(
+                    1)))) != 0)
                 {
-                    if ((int)((new HTuple((new HTuple(hv_isTopWaferExist.TupleEqual(1))).TupleAnd(
-                        new HTuple(hv_isBottomWaferExist.TupleEqual(1))))).TupleAnd(new HTuple(hv_BigRegionNum.TupleEqual(
-                        1)))) != 0)
+                    HOperatorSet.AreaCenter(ho_TopRegion, out hv_TopArea, out hv_TopRow, out hv_TopColumn);
+                    HOperatorSet.AreaCenter(ho_BottomRegion, out hv_BottomArea, out hv_BottomRow,
+                        out hv_BottomColumn);
+                    HOperatorSet.TupleAbs(hv_BottomRow - hv_TopRow, out hv_RowAbs);
+                    if ((int)((new HTuple(hv_RowAbs.TupleLess((hv_height / 2) - 20))).TupleOr(new HTuple(hv_RowAbs.TupleGreater(
+                        (hv_height / 2) + 20)))) != 0)
                     {
-                        HOperatorSet.AreaCenter(ho_TopRegion, out hv_TopArea, out hv_TopRow, out hv_TopColumn);
-                        HOperatorSet.AreaCenter(ho_BottomRegion, out hv_BottomArea, out hv_BottomRow,
-                            out hv_BottomColumn);
-                        HOperatorSet.TupleAbs(hv_BottomRow - hv_TopRow, out hv_RowAbs);
-                        if ((int)((new HTuple(hv_RowAbs.TupleLess((hv_height / 2) - 20))).TupleOr(new HTuple(hv_RowAbs.TupleGreater(
-                            (hv_height / 2) + 20)))) != 0)
+                        hv_isException = 1;
+                        if ((int)(hv_isUsingChinese) != 0)
                         {
-                            hv_isException = 1;
-                            if ((int)(hv_isUsingChinese) != 0)
-                            {
-                                hv_exceptionInfo = "内置参数异常-模板匹配失败！";
-                            }
-                            else
-                            {
-                                hv_exceptionInfo = "Built-in parameter error-Found model failed!";
-                            }
-                            disp_message_UserDefine(hv_windowHandle, hv_exceptionInfo, 100, 12, "red");
-                            hv_isGetTRRegionReturn = 1;
-                            ho_TopRegionsTemp.Dispose();
-                            ho_BottomRegionsTemp.Dispose();
-                            ho_RegionsOfBinaryThreshold.Dispose();
-                            ho_ConnectedRegions.Dispose();
-                            ho_SelectedRegions1.Dispose();
-                            ho_SortedRegions.Dispose();
-                            ho_TopEdgeRegion.Dispose();
-                            ho_BottomEdgeRegion.Dispose();
-                            ho_WaferOfToppart.Dispose();
-                            ho_TopImageReduced.Dispose();
-                            ho_ImageResultTop.Dispose();
-                            ho_RegionsOfBinaryThreshold1.Dispose();
-                            ho_RegionsOfBinaryThreshold2.Dispose();
-                            ho_RegionsOfBinaryThreshold3.Dispose();
-                            ho_SelectedRegionsTop.Dispose();
-                            ho_WaferOfBottompart.Dispose();
-                            ho_EmptyRegion.Dispose();
-
-                            return;
+                            hv_exceptionInfo = "内置参数异常-模板匹配失败！";
                         }
+                        else
+                        {
+                            hv_exceptionInfo = "Built-in parameter error-Found model failed!";
+                        }
+                        disp_message_UserDefine(hv_windowHandle, hv_exceptionInfo, 100, 12, "red");
+                        hv_isGetTRRegionReturn = 1;
+                        ho_TopRegionsTemp.Dispose();
+                        ho_BottomRegionsTemp.Dispose();
+                        ho_RegionsOfBinaryThreshold.Dispose();
+                        ho_ConnectedRegions.Dispose();
+                        ho_SelectedRegions1.Dispose();
+                        ho_SortedRegions.Dispose();
+                        ho_TopEdgeRegion.Dispose();
+                        ho_BottomEdgeRegion.Dispose();
+                        ho_WaferOfToppart.Dispose();
+                        ho_TopImageReduced.Dispose();
+                        ho_ImageResultTop.Dispose();
+                        ho_RegionsOfBinaryThreshold1.Dispose();
+                        ho_RegionsOfBinaryThreshold2.Dispose();
+                        ho_RegionsOfBinaryThreshold3.Dispose();
+                        ho_SelectedRegionsTop.Dispose();
+                        ho_WaferOfBottompart.Dispose();
+                        ho_EmptyRegion.Dispose();
+
+                        return;
                     }
                 }
 

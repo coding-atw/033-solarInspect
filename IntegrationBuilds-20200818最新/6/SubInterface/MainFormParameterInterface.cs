@@ -1536,7 +1536,7 @@ namespace _6
                     if (cbxStringType.Text == "Small Gap")
                     {
                         Global.stringType = "小间距";
-                    }
+                    }   
                     if (cbxStringType.Text == "Normal Gap")
                     {
                         Global.stringType = "常规间距";
@@ -2951,6 +2951,14 @@ namespace _6
                 {
                     Config.WriteIniData("Config", "MainLineDistance", "16.8", path);
                 }
+                if (cbxStringType.Text != "")
+                {
+                    Config.WriteIniData("Config", "StringType", cbxStringType.Text, path);
+                }
+                else
+                {
+                    Config.WriteIniData("Config", "StringType", "常规间距", path);
+                }
                 if (chxIsFullWafer.Checked)
                 {
                     Config.WriteIniData("Config", "IsFullWafer", "1", path);
@@ -3018,7 +3026,8 @@ namespace _6
                 }
                 Config.WriteIniData("Config", "WidthResolutionPositiveA", txtWidthResolution_PositiveA.Text, path);
                 Config.WriteIniData("Config", "WidthResolutionPositiveB", txtWidthResolution_PositiveB.Text, path);
-                Config.WriteIniData("Config", "WaferWidth", txtWaferWidth_PositiveA.Text, path);
+                Config.WriteIniData("Config", "WaferWidthPositiveA", txtWaferWidth_PositiveA.Text, path);
+                Config.WriteIniData("Config", "WaferWidthPositiveB", txtWaferWidth_PositiveB.Text, path);
                 if (chkIsUsingHeightResolutionCalibrate_PositiveA.Checked)
                 {
                     Config.WriteIniData("Config", "IsUsingHeightResolutionCalibratePositiveA", "1", path);
@@ -3443,7 +3452,9 @@ namespace _6
                 }
                 Config.WriteIniData("Config", "WidthResolutionNegativeA", txtWidthResolution_NegativeA.Text, path);
                 Config.WriteIniData("Config", "WidthResolutionNegativeB", txtWidthResolution_NegativeB.Text, path);
-                Config.WriteIniData("Config", "WaferWidth", txtWaferWidth_NegativeA.Text, path);
+                
+                Config.WriteIniData("Config", "WaferWidthNegativeA", txtWaferWidth_NegativeA.Text, path);
+                Config.WriteIniData("Config", "WaferWidthNegativeB", txtWaferWidth_NegativeB.Text, path);
                 if (chkIsUsingHeightResolutionCalibrate_NegativeA.Checked)
                 {
                     Config.WriteIniData("Config", "IsUsingHeightResolutionCalibrateNegativeA", "1", path);

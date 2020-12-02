@@ -170,7 +170,6 @@ namespace _6
             this.button2.TabIndex = 109;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label3
@@ -354,9 +353,9 @@ namespace _6
             this.lblVersion.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.Location = new System.Drawing.Point(3, 774);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(126, 23);
+            this.lblVersion.Size = new System.Drawing.Size(127, 23);
             this.lblVersion.TabIndex = 3;
-            this.lblVersion.Text = "1.1.1.201127";
+            this.lblVersion.Text = "1.1.1.201202";
             // 
             // pnlMainFormContentView
             // 
@@ -435,7 +434,7 @@ namespace _6
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.DarkGray;
-            this.ClientSize = new System.Drawing.Size(983, 363);
+            this.ClientSize = new System.Drawing.Size(992, 372);
             this.ControlBox = false;
             this.Controls.Add(this.pnlMainFormContentView);
             this.Controls.Add(this.pnlMainFormMenu);

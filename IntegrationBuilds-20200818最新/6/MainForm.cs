@@ -1841,6 +1841,11 @@ namespace _6
         }
         //链接相机函数
         public SapAcqDevice m_pAcqDevice = null;
+        private void SapError(Object sender ,SapErrorEventArgs e)
+        {
+            Global.SaveLog("D:\\Program Files\\Config\\033\\相机错误.txt",
+                                        DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "DALSA" + e.Message);
+        }
         public bool ConnectCamerasPositive()
         {
             //链接相机
@@ -2046,9 +2051,10 @@ namespace _6
                             }
                 
                         }
-            
+            SapManager.DisplayStatusMode = SapManager.StatusMode.Event;
+            SapManager.Error += SapError;
             #region 读取配置文件A，尝试建立连接
-                        try
+            try
                         {
                             if (!IsCameraPositiveAConnected && IsUsingCamera_PositiveA)
                             {
@@ -2067,6 +2073,7 @@ namespace _6
                                 m_XferPositiveA.Pairs[0].EventType = SapXferPair.XferEventType.EndOfFrame;
                                 m_XferPositiveA.XferNotify += new SapXferNotifyHandler(xfer_XferNotifyPositiveA);
                                 m_XferPositiveA.XferNotifyContext = this;
+
                     
                                 // Create acquisition object
                                 if (m_AcquisitionPositiveA != null && !m_AcquisitionPositiveA.Initialized)
@@ -6870,7 +6877,7 @@ namespace _6
                                     if (SingleClassFilmShiftingFlagArrayPositiveA[WaferIDPositiveA - 2]
                                         || SingleClassFilmMissFlagArrayPositiveA[WaferIDPositiveA - 2]
                                         || SingleClassFilmShiftingOfHeadAndTailFlagArrayPositiveA[WaferIDPositiveA - 2]
-                                        || SingleClassDistanceNGFlagArrayPositiveA[WaferIDPositiveA - 3]
+                                        //|| SingleClassDistanceNGFlagArrayPositiveA[WaferIDPositiveA - 3]
                                         || SingleClassEdgeDefectFlagArrayPositiveA[WaferIDPositiveA - 2]
                                         || SingleClassSurfaceDefectFlagArrayPositiveA[WaferIDPositiveA - 2]
                                         || SingleClassSurfaceScratchFlagArrayPositiveA[WaferIDPositiveA - 2]
@@ -6947,22 +6954,22 @@ namespace _6
                                             SingleClassFilmShiftingOfHeadAndTailTypePositiveA = "";
                                         }
 
-                                        if (SingleClassDistanceNGFlagArrayPositiveA[WaferIDPositiveA - 3])
-                                        {
-                                            if (Global.isEnglish == "0")
-                                            {
-                                                SingleClassDistanceNGTypePositiveA = "片间距异常";
-                                            }
-                                            else
-                                            {
-                                                SingleClassDistanceNGTypePositiveA = "Cell Spacing Error";
-                                            }
+                                        //if (SingleClassDistanceNGFlagArrayPositiveA[WaferIDPositiveA - 3])
+                                        //{
+                                        //    if (Global.isEnglish == "0")
+                                        //    {
+                                        //        SingleClassDistanceNGTypePositiveA = "片间距异常";
+                                        //    }
+                                        //    else
+                                        //    {
+                                        //        SingleClassDistanceNGTypePositiveA = "Cell Spacing Error";
+                                        //    }
 
-                                        }
-                                        else
-                                        {
-                                            SingleClassDistanceNGTypePositiveA = "";
-                                        }
+                                        //}
+                                        //else
+                                        //{
+                                        //    SingleClassDistanceNGTypePositiveA = "";
+                                        //}
 
                                         if (SingleClassEdgeDefectFlagArrayPositiveA[WaferIDPositiveA - 2])
                                         {
@@ -7391,7 +7398,7 @@ namespace _6
                                     if (SingleClassFilmShiftingFlagArrayPositiveA[WaferIDPositiveA - 2]
                                         || SingleClassFilmMissFlagArrayPositiveA[WaferIDPositiveA - 2]
                                         || SingleClassFilmShiftingOfHeadAndTailFlagArrayPositiveA[WaferIDPositiveA - 2]
-                                        || SingleClassDistanceNGFlagArrayPositiveA[WaferIDPositiveA - 2]
+                                        || SingleClassDistanceNGFlagArrayPositiveA[WaferIDPositiveA - 1]
                                         || SingleClassEdgeDefectFlagArrayPositiveA[WaferIDPositiveA - 2]
                                         || SingleClassSurfaceDefectFlagArrayPositiveA[WaferIDPositiveA - 2]
                                         || SingleClassSurfaceScratchFlagArrayPositiveA[WaferIDPositiveA - 2]
@@ -7894,6 +7901,7 @@ namespace _6
                             }
                             if (Convert.ToBoolean(hv_IsDistanceNG.I))
                             {
+                                isTopAndBottomNGPositiveA[WaferIDPositiveA] = true;
                                 HOperatorSet.GenEmptyObj(out tempDistanceNGImagePositiveA);
                                 HOperatorSet.CopyImage(ho_MainImagePositiveA, out tempDistanceNGImagePositiveA);
                                 lock (LockObjectDistanceNGImageQueuePositiveA)
@@ -8969,7 +8977,7 @@ namespace _6
                                     if (SingleClassFilmShiftingFlagArrayPositiveB[WaferIDPositiveB - 2]
                                         || SingleClassFilmMissFlagArrayPositiveB[WaferIDPositiveB - 2]
                                         || SingleClassFilmShiftingOfHeadAndTailFlagArrayPositiveB[WaferIDPositiveB - 2]
-                                        || SingleClassDistanceNGFlagArrayPositiveB[WaferIDPositiveB - 3]
+                                        //|| SingleClassDistanceNGFlagArrayPositiveB[WaferIDPositiveB - 3]
                                         || SingleClassEdgeDefectFlagArrayPositiveB[WaferIDPositiveB - 2]
                                         || SingleClassSurfaceDefectFlagArrayPositiveB[WaferIDPositiveB - 2]
                                         || SingleClassSurfaceScratchFlagArrayPositiveB[WaferIDPositiveB - 2]
@@ -9045,22 +9053,22 @@ namespace _6
                                             SingleClassFilmShiftingOfHeadAndTailTypePositiveB = "";
                                         }
 
-                                        if (SingleClassDistanceNGFlagArrayPositiveB[WaferIDPositiveB - 3])
-                                        {
-                                            if (Global.isEnglish == "0")
-                                            {
-                                                SingleClassDistanceNGTypePositiveB = "片间距异常";
-                                            }
-                                            else
-                                            {
-                                                SingleClassDistanceNGTypePositiveB = "Cell Spacing Error";
-                                            }
+                                        //if (SingleClassDistanceNGFlagArrayPositiveB[WaferIDPositiveB - 3])
+                                        //{
+                                        //    if (Global.isEnglish == "0")
+                                        //    {
+                                        //        SingleClassDistanceNGTypePositiveB = "片间距异常";
+                                        //    }
+                                        //    else
+                                        //    {
+                                        //        SingleClassDistanceNGTypePositiveB = "Cell Spacing Error";
+                                        //    }
 
-                                        }
-                                        else
-                                        {
-                                            SingleClassDistanceNGTypePositiveB = "";
-                                        }
+                                        //}
+                                        //else
+                                        //{
+                                        //    SingleClassDistanceNGTypePositiveB = "";
+                                        //}
 
                                         if (SingleClassEdgeDefectFlagArrayPositiveB[WaferIDPositiveB - 2])
                                         {
@@ -9475,7 +9483,7 @@ namespace _6
                                     if (SingleClassFilmShiftingFlagArrayPositiveB[WaferIDPositiveB - 2]
                                         || SingleClassFilmMissFlagArrayPositiveB[WaferIDPositiveB - 2]
                                         || SingleClassFilmShiftingOfHeadAndTailFlagArrayPositiveB[WaferIDPositiveB - 2]
-                                        || SingleClassDistanceNGFlagArrayPositiveB[WaferIDPositiveB - 2]
+                                        || SingleClassDistanceNGFlagArrayPositiveB[WaferIDPositiveB - 1]
                                         || SingleClassEdgeDefectFlagArrayPositiveB[WaferIDPositiveB - 2]
                                         || SingleClassSurfaceDefectFlagArrayPositiveB[WaferIDPositiveB - 2]
                                         || SingleClassSurfaceScratchFlagArrayPositiveB[WaferIDPositiveB - 2]
@@ -9990,6 +9998,7 @@ namespace _6
 
                             if (Convert.ToBoolean(hv_IsDistanceNG.I))
                             {
+                                isTopAndBottomNGPositiveB[WaferIDPositiveB] = true;
                                 HOperatorSet.GenEmptyObj(out tempDistanceNGImagePositiveB);
                                 HOperatorSet.CopyImage(ho_MainImagePositiveB, out tempDistanceNGImagePositiveB);
                                 lock (LockObjectDistanceNGImageQueuePositiveB)
