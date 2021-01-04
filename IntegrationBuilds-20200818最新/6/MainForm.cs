@@ -1,12 +1,12 @@
 ﻿//#define Dalsa
-#define Dahua
-//#define HikVision
+//#define Dahua
+#define HikVision
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
+using System.ServiceProcess;
 using HalconDotNet;
 using System.Threading;
 using System.Runtime.InteropServices;
@@ -20,6 +20,7 @@ using System.Text.RegularExpressions;
 using _6.CS;
 using Newtonsoft.Json;
 using MvCamCtrl.NET;
+using System.Threading.Tasks;
 
 
 /***************************************修改记录*********************************************/
@@ -1304,10 +1305,13 @@ namespace _6
                 
                 pt.m_BuffersPositiveA.GetAddress(out pt.imagedataPositiveA);
                 int dateSize = pt.m_BuffersPositiveA.get_SpaceUsed(pt.m_BuffersPositiveA.Index);
-                Global.SaveLog("D:\\Program Files\\Config\\033\\图像A高度.txt",
-               DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像Index" + pt.m_BuffersPositiveA.Index.ToString());
-                Global.SaveLog("D:\\Program Files\\Config\\033\\图像A高度.txt",
-               DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像大小" + dateSize.ToString());
+               // Global.SaveLog("D:\\Program Files\\Config\\033\\图像A高度.txt",
+               //DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像Index" + pt.m_BuffersPositiveA.Index.ToString());
+               // Global.SaveLog("D:\\Program Files\\Config\\033\\图像A高度.txt",
+               //DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像大小" + dateSize.ToString());
+
+
+                
                 int m_BufWidth = pt.m_BuffersPositiveA.Width;
                 
                 float m_BufBytesPerPixel = pt.m_BuffersPositiveA.BytesPerPixel;
@@ -1315,9 +1319,15 @@ namespace _6
                 float m_BufHeight = (dateSize / m_BufWidth)/ m_BufBytesPerPixel;
                 //string filename = "D:/testA/" + ImageRealTime+".bmp";
                 //bool ba =pt.m_BuffersPositiveA.Save(filename, "-format bmp", pt.m_BuffersPositiveA.Index,0);
-                Global.SaveLog("D:\\Program Files\\Config\\033\\图像A高度.txt",
-                DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像高度" + m_BufHeight.ToString());
+                //Global.SaveLog("D:\\Program Files\\Config\\033\\图像A高度.txt",
+                //DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像高度" + m_BufHeight.ToString());
 
+                //FileInfo fileInfo = new FileInfo("D:\\Program Files\\Config\\033\\图像A高度.txt");
+
+                //if (fileInfo.Length / 1024 > 10240)
+                //{
+                //    File.Delete("D:\\Program Files\\Config\\033\\图像A高度.txt");
+                //}
                 // HOperatorSet.GenImageInterleaved(out tempImageFromCameraPositiveA, pt.imagedataPositiveA, "rgb", pt.m_BuffersPositiveA.Width, pt.m_BuffersPositiveA.Height, 0, "byte", pt.m_BuffersPositiveA.Width, pt.m_BuffersPositiveA.Height, 0, 0, -1, 0);
                 if (m_BufHeight>0)
                 {
@@ -1361,20 +1371,26 @@ namespace _6
             {
                 
                 pt.m_BuffersPositiveB.GetAddress(out pt.imagedataPositiveB);
-                //string filename = "D:/testB/" + ImageRealTime + ".bmp";
-                //得到实际图像的大小和高度
+              
                 int  dateSize = pt.m_BuffersPositiveB.get_SpaceUsed(pt.m_BuffersPositiveB.Index);
-                Global.SaveLog("D:\\Program Files\\Config\\033\\图像B高度.txt",
-               DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像Index" + pt.m_BuffersPositiveB.Index.ToString());
-                Global.SaveLog("D:\\Program Files\\Config\\033\\图像B高度.txt",
-               DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像大小" + dateSize.ToString());
+               // Global.SaveLog("D:\\Program Files\\Config\\033\\图像B高度.txt",
+               //DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像Index" + pt.m_BuffersPositiveB.Index.ToString());
+               // Global.SaveLog("D:\\Program Files\\Config\\033\\图像B高度.txt",
+               //DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像大小" + dateSize.ToString());
                 int m_BufWidth = pt.m_BuffersPositiveB.Width;
 
                 float m_BufBytesPerPixel = pt.m_BuffersPositiveB.BytesPerPixel;
 
                 float m_BufHeight = (dateSize / m_BufWidth) / m_BufBytesPerPixel;
-                Global.SaveLog("D:\\Program Files\\Config\\033\\图像B高度.txt",
-              DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像高度" + m_BufHeight.ToString());
+              //  Global.SaveLog("D:\\Program Files\\Config\\033\\图像B高度.txt",
+              //DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "图像高度" + m_BufHeight.ToString());
+
+              //  FileInfo fileInfo = new FileInfo("D:\\Program Files\\Config\\033\\图像B高度.txt");
+
+              //  if (fileInfo.Length / 1024 > 10240)
+              //  {
+              //      File.Delete("D:\\Program Files\\Config\\033\\图像B高度.txt");
+              //  }
                 //bool b= pt.m_BuffersPositiveB.Save(filename, "-format bmp", pt.m_BuffersPositiveB.Index,0);
                 //HOperatorSet.GenImageInterleaved(out pt.tempImageFromCameraPositiveB, pt.imagedataPositiveB, "rgb", pt.m_BuffersPositiveB.Width, pt.m_BuffersPositiveB.Height, 0, "byte", pt.m_BuffersPositiveB.Width, pt.m_BuffersPositiveB.Height, 0, 0, -1, 0);
                 if (m_BufHeight > 0)
@@ -1537,13 +1553,59 @@ namespace _6
 
         }//清空B缓存
         #endregion////
-
+        public int commMonitor = 0;
+        public int COMM_TIMEOUT_VALUE = 3;
         private void timer_AutoTimeAndDeleteOldFiles_Tick(object sender, EventArgs e)
         {
             RealTime = DateTime.Now.AddHours(-8).ToString("yyyyMMdd");
             ImageRealTime = DateTime.Now.ToString("yyyyMMddHHmmss");
             FileDeadTime = DateTime.Now.AddDays(-3).ToString("yyyyMMdd");
             DeleteMethod(FileDeadTime);
+            RefreshClassStaticsData();
+            FileInfo fileInfo1 = new FileInfo("D:\\Program Files\\Config\\033\\TcpIpStateLog.txt");
+            if(fileInfo1.Exists)
+            {
+                if (fileInfo1.Length / 1024 > 10240)
+                {
+                    File.Delete("D:\\Program Files\\Config\\033\\TcpIpStateLog.txt");
+                }
+            }
+            
+
+            FileInfo fileInfo2 = new FileInfo(" D:\\Program Files\\Config\\033\\TcpIpStateLogReceive.txt");
+            if (fileInfo2.Exists)
+            {
+                if (fileInfo2.Length / 1024 > 10240)
+                {
+                    File.Delete(" D:\\Program Files\\Config\\033\\TcpIpStateLogReceive.txt");
+                }
+            }
+
+#if Dalsa
+            ServiceController serv = new ServiceController("Sapera GigE Service");
+            if (serv.Status != ServiceControllerStatus.Running)
+            {
+               
+                serv.Start();
+                
+                serv.WaitForStatus(ServiceControllerStatus.Running);
+                ConnectCamerasPositive();
+            }
+#endif
+            if(commMonitor>=COMM_TIMEOUT_VALUE)
+            {
+                commMonitor = 0;
+                return;
+            }
+
+            commMonitor++;
+            if(commMonitor>=COMM_TIMEOUT_VALUE)
+            {
+                l2TCPClientSend2PLC.Active = false;
+                l2TCPClientSend2PLC.Active = true;
+                return;
+            }
+
         }
         //是否已经导出生产数据
         bool isDone = false;
@@ -1552,7 +1614,7 @@ namespace _6
             CsvtimePositive = DateTime.Now.ToString("HHmmss");
             //CsvCreate();
             string dd = DateTime.Now.ToString("HH:mm:ss");
-            if ((dd.CompareTo("08:00:00") > 0 && dd.CompareTo("08:00:30") < 0) || (dd.CompareTo("20:00:00") > 0 && dd.CompareTo("20:00:05") < 0))
+            if ((dd.CompareTo("07:58:00") > 0 && dd.CompareTo("08:00:00") < 0) || (dd.CompareTo("19:58:00") > 0 && dd.CompareTo("20:00:00") < 0))
             {
                 if (!isDone)
                 {
@@ -1584,6 +1646,10 @@ namespace _6
                     mfNGStatisticsInterface.ClearStaticsPositiveB();
                     mfNGStatisticsInterface.ClearStaticsNegativeA();
                     mfNGStatisticsInterface.ClearStaticsNegativeB();
+#if Dalsa
+                    ConnectCamerasPositive();
+#endif
+
 
                 }
 
@@ -1619,13 +1685,14 @@ namespace _6
             //framePositiveA = e.GrabResult;
             var nWidth = pFrameInfo.nWidth;
             var nHeight = pFrameInfo.nHeight;
-            ptrRGB_PositiveA = IntPtr.Zero;
+            //ptrRGB_PositiveA = IntPtr.Zero;
             //var nRGB = RGBFactory.EncodeLen((int)CameraImageMaxWidth, (int)CameraImageMaxHeight, true);
-            if (ptrRGB_PositiveA == IntPtr.Zero)
+            if (ptrRGB_PositiveA!= null && ptrRGB_PositiveA != IntPtr.Zero)
             {
-                ptrRGB_PositiveA = Marshal.AllocHGlobal((int)(pFrameInfo.nHeight * pFrameInfo.nWidth * 3 + 2048));
+                Marshal.FreeHGlobal(ptrRGB_PositiveA);
             }
 
+            ptrRGB_PositiveA = Marshal.AllocHGlobal((int)(pFrameInfo.nHeight * pFrameInfo.nWidth * 3 + 2048));
 
 
             MyCamera.MV_PIXEL_CONVERT_PARAM stConverPixelParam = new MyCamera.MV_PIXEL_CONVERT_PARAM();
@@ -1690,6 +1757,7 @@ namespace _6
                         ImageQueuePositiveA.Enqueue(tempImageFromCameraA);
                     }
                 }
+
             }
             catch (Exception exception)
             {
@@ -1849,8 +1917,8 @@ namespace _6
         public bool ConnectCamerasPositive()
         {
             //链接相机
-            #if Dalsa
-            #region DALSA相机采集卡
+#if Dalsa
+#region DALSA相机采集卡
 
                         //#region 读取配置文件A，尝试建立连接
                         //try
@@ -1992,8 +2060,8 @@ namespace _6
                         //#endregion
              
                         //return true;
-            #endregion
-            #region DALSA千兆网
+#endregion
+#region DALSA千兆网
                         int serverCount = SapManager.GetServerCount();
                         string userDefinedName = "";
                         string serverName = "";
@@ -2053,7 +2121,7 @@ namespace _6
                         }
             SapManager.DisplayStatusMode = SapManager.StatusMode.Event;
             SapManager.Error += SapError;
-            #region 读取配置文件A，尝试建立连接
+#region 读取配置文件A，尝试建立连接
             try
                         {
                             if (!IsCameraPositiveAConnected && IsUsingCamera_PositiveA)
@@ -2066,7 +2134,7 @@ namespace _6
                                 //// Allocate objects
                                 //m_AcquisitionPositiveA = new SapAcqDevice(m_ServerLocationPositiveA);
                    
-                                m_BuffersPositiveA = new SapBufferWithTrash(2, m_AcquisitionPositiveA, SapBuffer.MemoryType.ScatterGather);
+                                m_BuffersPositiveA = new SapBufferWithTrash(10, m_AcquisitionPositiveA, SapBuffer.MemoryType.ScatterGather);
                                 m_XferPositiveA = new SapAcqDeviceToBuf(m_AcquisitionPositiveA, m_BuffersPositiveA);
                                // view = new SapView(m_BuffersPositiveA);
 
@@ -2122,8 +2190,8 @@ namespace _6
                         {
                             MessageBox.Show(e.Message);
                         }
-            #endregion
-            #region 读取配置文件B，尝试建立连接
+#endregion
+#region 读取配置文件B，尝试建立连接
                         try
                         {
                             if (!IsCameraPositiveBConnected&&IsUsingCamera_PositiveB)
@@ -2136,9 +2204,9 @@ namespace _6
                                 //// Allocate objects
                                 //m_AcquisitionPositiveB= new SapAcqDevice(m_ServerLocationPositiveB);
 
-                                m_BuffersPositiveB = new SapBuffer(2, m_AcquisitionPositiveB, SapBuffer.MemoryType.ScatterGather);
+                                m_BuffersPositiveB = new SapBuffer(10, m_AcquisitionPositiveB, SapBuffer.MemoryType.ScatterGather);
                                 m_XferPositiveB = new SapAcqDeviceToBuf(m_AcquisitionPositiveB, m_BuffersPositiveB);
-
+                    
                                 m_XferPositiveB.Pairs[0].EventType = SapXferPair.XferEventType.EndOfFrame;
                                 m_XferPositiveB.XferNotify += new SapXferNotifyHandler(xfer_XferNotifyPositiveB);
                                 m_XferPositiveB.XferNotifyContext = this;
@@ -2189,12 +2257,12 @@ namespace _6
                         {
                             MessageBox.Show(e.Message);
                         }
-            #endregion
+#endregion
                         return true;
-            #endregion
-            #endif
-            #if Dahua
-            #region 大华相机
+#endregion
+#endif
+#if Dahua
+#region 大华相机
                         //连接配方选择的相机
                         List<IDeviceInfo> cameraList = Enumerator.EnumerateDevices();
                         if ((IsUsingCamera_PositiveA || IsUsingCamera_PositiveB) && cameraList.Count <= 0)
@@ -2298,10 +2366,10 @@ namespace _6
                         }
                         return true;
 
-            #endregion
-            #endif
-            #if HikVision
-            #region 海康威视
+#endregion
+#endif
+#if HikVision
+#region 海康威视
                 int nRet = MyCamera.MV_OK;
                 // ch:枚举设备 | en:Enum device
                 MyCamera.MV_CC_DEVICE_INFO_LIST stDevList = new MyCamera.MV_CC_DEVICE_INFO_LIST();
@@ -2350,7 +2418,7 @@ namespace _6
                           DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + "--" + "相机ip" +  nIp1 + "." + nIp2 + "." + nIp3 + "." + nIp4);
                 if (IsUsingCamera_PositiveA && !IsCameraPositiveAConnected)
                 {
-                    #region A侧正面
+#region A侧正面
                     if ((nIp1 + "." + nIp2 + "." + nIp3 + "." + nIp4) == "192.168.0.50")
                     {
                         nDevIndex = i;
@@ -2436,12 +2504,12 @@ namespace _6
                         IsCameraPositiveAConnected = true;
                     }
                    
-                    #endregion
+#endregion
                 }
 
                 if (IsUsingCamera_PositiveB && !IsCameraPositiveBConnected)
                 {
-                    #region B侧正面
+#region B侧正面
                     if ((nIp1 + "." + nIp2 + "." + nIp3 + "." + nIp4) == "192.168.1.50")
                     {
                         nDevIndex = i;
@@ -2527,15 +2595,15 @@ namespace _6
                         IsCameraPositiveBConnected = true;
                     }
                     
-                    #endregion
+#endregion
                 }
             }
 
 
             return true;
                
-            #endregion
-            #endif
+#endregion
+#endif
         }
 
 
@@ -3327,11 +3395,11 @@ namespace _6
   
         private void Form1_Load(object sender, EventArgs e)
         {
-           
-            
+            lblVersion.Text = "V1.0-" + File.GetLastWriteTime(GetType().Assembly.Location).ToString("yy.MM.dd");
+
             //主程序运行Flag
             bl_Inspect = true;
-            Global.userType = "0";
+            Global.userType = "0";  
             //读取配方参数
             ReadConfig(defaultRecipePath);
             //强制打开片间距检测
@@ -3497,7 +3565,7 @@ namespace _6
             
             //开启正面串检算法处理的线程
             
-            new Thread(() =>
+            new Task(() =>
             {
                 
                 while (bl_Inspect)
@@ -3523,7 +3591,7 @@ namespace _6
 
            
 
-            new Thread(() =>
+            new Task(() =>
             {
                 while (bl_Inspect)
                 {
@@ -3538,14 +3606,14 @@ namespace _6
                     }
                     else
                     {
-
+                        
                         Thread.Sleep(10);
                     }
                 }
             }).Start();
 
             //开启反面串检算法处理的线程
-            new Thread(() =>
+            new Task(() =>
             {
                 while (bl_Inspect)
                 {
@@ -3565,9 +3633,12 @@ namespace _6
                     }
                 }
             }).Start();
-
-            l2TCPClientSend2PLC.Active = true;
-            new Thread(() =>
+            if (Global.isUpperLink=="1")
+            {
+                l2TCPClientSend2PLC.Active = true;
+            }
+            
+            new Task(() =>
             {
                 while (bl_Inspect)
                 {
@@ -3577,7 +3648,7 @@ namespace _6
 
 
             }).Start();
-            new Thread(() =>
+            new Task(() =>
             {
                 
                 while (bl_Inspect)
@@ -3602,47 +3673,50 @@ namespace _6
 
 
             //开启双线PLC通信线程
-            new Thread(() =>
+            new Task(() =>
             {
-                StartConnectPositiveA();
-                StartConnectPositiveB();
-                StartConnectNegativeA();
-                StartConnectNegativeB();
+                if (Global.isUpperLink == "0")
+                {
+                    StartConnectPositiveA();
+                    StartConnectPositiveB();
+                    StartConnectNegativeA();
+                    StartConnectNegativeB();
+                }
             }).Start();
 
 
             //开启刷新统计结果在主界面的线程
             
-            new Thread(() =>
-            {
-                while (bl_Inspect)
-                {
-                    try
-                    {
-                        Invoke(new UpdateForm_dl(RefreshClassStaticsData));
-                    }
-                    catch (Exception)
-                    {
+            //new Thread(() =>
+            //{
+            //    while (bl_Inspect)
+            //    {
+            //        try
+            //        {
+            //            Invoke(new UpdateForm_dl(RefreshClassStaticsData));
+            //        }
+            //        catch (Exception)
+            //        {
 
-                    }
-                    Thread.Sleep(10);
-                }
-            }).Start();
+            //        }
+            //        Thread.Sleep(10);
+            //    }
+            //}).Start();
 
             //开启保存图片的线程
-            new Thread(() =>
+            new Task(() =>
             {
                 SaveImagePositiveA();
             }).Start();
-            new Thread(() =>
+            new Task(() =>
             {
                 SaveImagePositiveB();
             }).Start();
-            new Thread(() =>
+            new Task(() =>
             {
                 SaveImageNegativeA();
             }).Start();
-            new Thread(() =>
+            new Task(() =>
             {
                 SaveImageNegativeB();
             }).Start();
@@ -3706,231 +3780,7 @@ namespace _6
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            //grpMainFormButtonBox.Left = 0;
-            //grpMainFormButtonBox.Top = msMainFormMenuStrip.Top + msMainFormMenuStrip.Height + 5;
-            //grpMainFormButtonBox.Width = msMainFormMenuStrip.Width;
-
-            //hWindowControl1.Width = this.Width / 2 - 20;
-            //hWindowControl1.Height = (this.Height - grpMainFormButtonBox.Height - msMainFormMenuStrip.Height) * 2 / 3 - 20;
-            //hWindowControl1.Left = grpMainFormButtonBox.Left;
-            //hWindowControl1.Top = grpMainFormButtonBox.Top + grpMainFormButtonBox.Height + 5;
-
-            //hWindowControl2.Width = hWindowControl1.Width;
-            //hWindowControl2.Height = hWindowControl1.Height;
-            //hWindowControl2.Left = hWindowControl1.Left + hWindowControl1.Width + 20;
-            //hWindowControl2.Top = hWindowControl1.Top;
-
-            ///**********A侧**********/
-            ////第一行
-            //labelA.Left = hWindowControl1.Left + 10;
-            //labelA.Top = hWindowControl1.Height + hWindowControl1.Top + 20;
-            //lblCurrentClusterStateA12.Left = hWindowControl1.Left + hWindowControl1.Width - 30;
-            //lblCurrentClusterStateA12.Top = labelA.Top;
-            //lblCurrentClusterStateA1.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 1 / 12;
-            //lblCurrentClusterStateA1.Top = labelA.Top;
-            //lblCurrentClusterStateA2.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 2 / 12;
-            //lblCurrentClusterStateA2.Top = labelA.Top;
-            //lblCurrentClusterStateA3.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 3 / 12;
-            //lblCurrentClusterStateA3.Top = labelA.Top;
-            //lblCurrentClusterStateA4.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 4 / 12;
-            //lblCurrentClusterStateA4.Top = labelA.Top;
-            //lblCurrentClusterStateA5.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 5 / 12;
-            //lblCurrentClusterStateA5.Top = labelA.Top;
-            //lblCurrentClusterStateA6.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 6 / 12;
-            //lblCurrentClusterStateA6.Top = labelA.Top;
-            //lblCurrentClusterStateA7.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 7 / 12;
-            //lblCurrentClusterStateA7.Top = labelA.Top;
-            //lblCurrentClusterStateA8.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 8 / 12;
-            //lblCurrentClusterStateA8.Top = labelA.Top;
-            //lblCurrentClusterStateA9.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 9 / 12;
-            //lblCurrentClusterStateA9.Top = labelA.Top;
-            //lblCurrentClusterStateA10.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 10 / 12;
-            //lblCurrentClusterStateA10.Top = labelA.Top;
-            //lblCurrentClusterStateA11.Left = labelA.Left + (lblCurrentClusterStateA12.Left - labelA.Left) * 11 / 12;
-            //lblCurrentClusterStateA11.Top = labelA.Top;
-
-            ////第六行
-            //btnClearStaticsA.Top = this.Height - btnClearStaticsA.Height - 60;
-            //btnClearStaticsA.Left = lblCurrentClusterStateA12.Left - btnClearStaticsA.Width;
-
-            //lblPointInfoGrayValueA.Top = btnClearStaticsA.Top;
-            //lblPointInfoGrayValueA.Left = btnClearStaticsA.Left - lblPointInfoGrayValueA.Width - 200;
-            //lblPointInfoGrayValueATitle.Top = btnClearStaticsA.Top;
-            //lblPointInfoGrayValueATitle.Left = lblPointInfoGrayValueA.Left - lblPointInfoGrayValueATitle.Width - 10;
-            //lblPointInfoColumnA.Top = btnClearStaticsA.Top;
-            //lblPointInfoColumnA.Left = lblPointInfoGrayValueATitle.Left - lblPointInfoColumnA.Width - 10;
-            //lblPointInfoColumnATitle.Top = btnClearStaticsA.Top;
-            //lblPointInfoColumnATitle.Left = lblPointInfoColumnA.Left - lblPointInfoColumnATitle.Width - 10;
-            //lblPointInfoRowA.Top = btnClearStaticsA.Top;
-            //lblPointInfoRowA.Left = lblPointInfoColumnATitle.Left - lblPointInfoRowA.Width - 10;
-            //lblPointInfoRowATitle.Top = btnClearStaticsA.Top;
-            //lblPointInfoRowATitle.Left = lblPointInfoRowA.Left - lblPointInfoRowATitle.Width - 10;
-
-            ////第二行
-            //lblTotalCountATitle.Top = labelA.Top + (btnClearStaticsA.Top - labelA.Top) * 1 / 5;
-            //lblTotalCountATitle.Left = labelA.Left;
-            //lblBrokenLineCountA.Top = lblTotalCountATitle.Top;
-            //lblBrokenLineCountA.Left = lblCurrentClusterStateA12.Left - lblBrokenLineCountA.Width;
-            //lblTotalCountA.Top = lblTotalCountATitle.Top;
-            //lblTotalCountA.Left = lblTotalCountATitle.Left + (lblBrokenLineCountA.Left - lblTotalCountATitle.Left) * 1 / 7;
-            //lblFilmShiftingCountATitle.Top = lblTotalCountATitle.Top;
-            //lblFilmShiftingCountATitle.Left = lblTotalCountATitle.Left + (lblBrokenLineCountA.Left - lblTotalCountATitle.Left) * 2 / 7;
-            //lblFilmShiftingCountA.Top = lblTotalCountATitle.Top;
-            //lblFilmShiftingCountA.Left = lblTotalCountATitle.Left + (lblBrokenLineCountA.Left - lblTotalCountATitle.Left) * 3 / 7;
-            //lblDistanceNGCountATitle.Top = lblTotalCountATitle.Top;
-            //lblDistanceNGCountATitle.Left = lblTotalCountATitle.Left + (lblBrokenLineCountA.Left - lblTotalCountATitle.Left) * 4 / 7;
-            //lblDistanceNGCountA.Top = lblTotalCountATitle.Top;
-            //lblDistanceNGCountA.Left = lblTotalCountATitle.Left + (lblBrokenLineCountA.Left - lblTotalCountATitle.Left) * 5 / 7;
-            //lblBrokenLineCountATitle.Top = lblTotalCountATitle.Top;
-            //lblBrokenLineCountATitle.Left = lblTotalCountATitle.Left + (lblBrokenLineCountA.Left - lblTotalCountATitle.Left) * 6 / 7;
-
-            ////第三行
-            //lblNGTotalCountATitle.Top = labelA.Top + (btnClearStaticsA.Top - labelA.Top) * 2 / 5;
-            //lblNGTotalCountATitle.Left = labelA.Left;
-            //lblStartWeldingNGCountA.Top = lblNGTotalCountATitle.Top;
-            //lblStartWeldingNGCountA.Left = lblCurrentClusterStateA12.Left - lblStartWeldingNGCountA.Width;
-            //lblNGTotalCountA.Top = lblNGTotalCountATitle.Top;
-            //lblNGTotalCountA.Left = lblNGTotalCountATitle.Left + (lblStartWeldingNGCountA.Left - lblNGTotalCountATitle.Left) * 1 / 7;
-            //lblFilmMissCountATitle.Top = lblNGTotalCountATitle.Top;
-            //lblFilmMissCountATitle.Left = lblNGTotalCountATitle.Left + (lblStartWeldingNGCountA.Left - lblNGTotalCountATitle.Left) * 2 / 7;
-            //lblFilmMissCountA.Top = lblNGTotalCountATitle.Top;
-            //lblFilmMissCountA.Left = lblNGTotalCountATitle.Left + (lblStartWeldingNGCountA.Left - lblNGTotalCountATitle.Left) * 3 / 7 + 10;
-            //lblEdgeDefectCountATitle.Top = lblNGTotalCountATitle.Top;
-            //lblEdgeDefectCountATitle.Left = lblNGTotalCountATitle.Left + (lblStartWeldingNGCountA.Left - lblNGTotalCountATitle.Left) * 4 / 7;
-            //lblEdgeDefectCountA.Top = lblNGTotalCountATitle.Top;
-            //lblEdgeDefectCountA.Left = lblNGTotalCountATitle.Left + (lblStartWeldingNGCountA.Left - lblNGTotalCountATitle.Left) * 5 / 7;
-            //lblStartWeldingNGCountATitle.Top = lblNGTotalCountATitle.Top;
-            //lblStartWeldingNGCountATitle.Left = lblNGTotalCountATitle.Left + (lblStartWeldingNGCountA.Left - lblNGTotalCountATitle.Left) * 6 / 7;
-
-            ////第四行
-            //lblMajorFailureCountATitle.Top = labelA.Top + (btnClearStaticsA.Top - labelA.Top) * 3 / 5;
-            //lblMajorFailureCountATitle.Left = labelA.Left;
-            //lblSurfaceColorDiffCountA.Top = lblMajorFailureCountATitle.Top;
-            //lblSurfaceColorDiffCountA.Left = lblCurrentClusterStateA12.Left - lblSurfaceColorDiffCountA.Width;
-            //lblMajorFailureCountA.Top = lblMajorFailureCountATitle.Top;
-            //lblMajorFailureCountA.Left = lblMajorFailureCountATitle.Left + (lblSurfaceColorDiffCountA.Left - lblMajorFailureCountATitle.Left) * 1 / 7;
-            //lblFilmShiftingHeadAndTailCountATitle.Top = lblMajorFailureCountATitle.Top;
-            //lblFilmShiftingHeadAndTailCountATitle.Left = lblMajorFailureCountATitle.Left + (lblSurfaceColorDiffCountA.Left - lblMajorFailureCountATitle.Left) * 2 / 7;
-            //lblFilmShiftingHeadAndTailCountA.Top = lblMajorFailureCountATitle.Top;
-            //lblFilmShiftingHeadAndTailCountA.Left = lblMajorFailureCountATitle.Left + (lblSurfaceColorDiffCountA.Left - lblMajorFailureCountATitle.Left) * 3 / 7;
-            //lblSurfaceDefectCountATitle.Top = lblMajorFailureCountATitle.Top;
-            //lblSurfaceDefectCountATitle.Left = lblMajorFailureCountATitle.Left + (lblSurfaceColorDiffCountA.Left - lblMajorFailureCountATitle.Left) * 4 / 7;
-            //lblSurfaceDefectCountA.Top = lblMajorFailureCountATitle.Top;
-            //lblSurfaceDefectCountA.Left = lblMajorFailureCountATitle.Left + (lblSurfaceColorDiffCountA.Left - lblMajorFailureCountATitle.Left) * 5 / 7;
-            //lblSurfaceColorDiffCountATitle.Top = lblMajorFailureCountATitle.Top;
-            //lblSurfaceColorDiffCountATitle.Left = lblMajorFailureCountATitle.Left + (lblSurfaceColorDiffCountA.Left - lblMajorFailureCountATitle.Left) * 6 / 7;
-
-            ////第五行
-            //lblLinearityNGCountA.Top = labelA.Top + (btnClearStaticsA.Top - labelA.Top) * 4 / 5;
-            //lblLinearityNGCountA.Left = lblCurrentClusterStateA12.Left - lblLinearityNGCountA.Width;
-            //lblLinearityNGCountATitle.Top = lblLinearityNGCountA.Top;
-            //lblLinearityNGCountATitle.Left = lblLinearityNGCountA.Left - lblLinearityNGCountATitle.Width - 20;
-
-            ///*************B侧**************/
-            ////第一行
-            //labelB.Left = hWindowControl2.Left + 10;
-            //labelB.Top = hWindowControl2.Height + hWindowControl2.Top + 20;
-            //lblCurrentClusterStateB12.Left = hWindowControl2.Left + hWindowControl2.Width - 30;
-            //lblCurrentClusterStateB12.Top = labelB.Top;
-            //lblCurrentClusterStateB1.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 1 / 12;
-            //lblCurrentClusterStateB1.Top = labelB.Top;
-            //lblCurrentClusterStateB2.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 2 / 12;
-            //lblCurrentClusterStateB2.Top = labelB.Top;
-            //lblCurrentClusterStateB3.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 3 / 12;
-            //lblCurrentClusterStateB3.Top = labelB.Top;
-            //lblCurrentClusterStateB4.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 4 / 12;
-            //lblCurrentClusterStateB4.Top = labelB.Top;
-            //lblCurrentClusterStateB5.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 5 / 12;
-            //lblCurrentClusterStateB5.Top = labelB.Top;
-            //lblCurrentClusterStateB6.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 6 / 12;
-            //lblCurrentClusterStateB6.Top = labelB.Top;
-            //lblCurrentClusterStateB7.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 7 / 12;
-            //lblCurrentClusterStateB7.Top = labelB.Top;
-            //lblCurrentClusterStateB8.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 8 / 12;
-            //lblCurrentClusterStateB8.Top = labelB.Top;
-            //lblCurrentClusterStateB9.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 9 / 12;
-            //lblCurrentClusterStateB9.Top = labelB.Top;
-            //lblCurrentClusterStateB10.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 10 / 12;
-            //lblCurrentClusterStateB10.Top = labelB.Top;
-            //lblCurrentClusterStateB11.Left = labelB.Left + (lblCurrentClusterStateB12.Left - labelB.Left) * 11 / 12;
-            //lblCurrentClusterStateB11.Top = labelB.Top;
-
-            ////第六行
-            //btnClearStaticsB.Top = this.Height - btnClearStaticsB.Height - 60;
-            //btnClearStaticsB.Left = lblCurrentClusterStateB12.Left - btnClearStaticsB.Width;
-
-            //lblPointInfoGrayValueB.Top = btnClearStaticsB.Top;
-            //lblPointInfoGrayValueB.Left = btnClearStaticsB.Left - lblPointInfoGrayValueB.Width - 200;
-            //lblPointInfoGrayValueBTitle.Top = btnClearStaticsB.Top;
-            //lblPointInfoGrayValueBTitle.Left = lblPointInfoGrayValueB.Left - lblPointInfoGrayValueBTitle.Width - 10;
-            //lblPointInfoColumnB.Top = btnClearStaticsB.Top;
-            //lblPointInfoColumnB.Left = lblPointInfoGrayValueBTitle.Left - lblPointInfoColumnB.Width - 10;
-            //lblPointInfoColumnBTitle.Top = btnClearStaticsB.Top;
-            //lblPointInfoColumnBTitle.Left = lblPointInfoColumnB.Left - lblPointInfoColumnBTitle.Width - 10;
-            //lblPointInfoRowB.Top = btnClearStaticsB.Top;
-            //lblPointInfoRowB.Left = lblPointInfoColumnBTitle.Left - lblPointInfoRowB.Width - 10;
-            //lblPointInfoRowBTitle.Top = btnClearStaticsB.Top;
-            //lblPointInfoRowBTitle.Left = lblPointInfoRowB.Left - lblPointInfoRowBTitle.Width - 10;
-
-            ////第二行
-            //lblTotalCountBTitle.Top = labelB.Top + (btnClearStaticsB.Top - labelB.Top) * 1 / 5;
-            //lblTotalCountBTitle.Left = labelB.Left;
-            //lblBrokenLineCountB.Top = lblTotalCountBTitle.Top;
-            //lblBrokenLineCountB.Left = lblCurrentClusterStateB12.Left - lblBrokenLineCountB.Width;
-            //lblTotalCountB.Top = lblTotalCountBTitle.Top;
-            //lblTotalCountB.Left = lblTotalCountBTitle.Left + (lblBrokenLineCountB.Left - lblTotalCountBTitle.Left) * 1 / 7;
-            //lblFilmShiftingCountBTitle.Top = lblTotalCountBTitle.Top;
-            //lblFilmShiftingCountBTitle.Left = lblTotalCountBTitle.Left + (lblBrokenLineCountB.Left - lblTotalCountBTitle.Left) * 2 / 7;
-            //lblFilmShiftingCountB.Top = lblTotalCountBTitle.Top;
-            //lblFilmShiftingCountB.Left = lblTotalCountBTitle.Left + (lblBrokenLineCountB.Left - lblTotalCountBTitle.Left) * 3 / 7;
-            //lblDistanceNGCountBTitle.Top = lblTotalCountBTitle.Top;
-            //lblDistanceNGCountBTitle.Left = lblTotalCountBTitle.Left + (lblBrokenLineCountB.Left - lblTotalCountBTitle.Left) * 4 / 7;
-            //lblDistanceNGCountB.Top = lblTotalCountBTitle.Top;
-            //lblDistanceNGCountB.Left = lblTotalCountBTitle.Left + (lblBrokenLineCountB.Left - lblTotalCountBTitle.Left) * 5 / 7;
-            //lblBrokenLineCountBTitle.Top = lblTotalCountBTitle.Top;
-            //lblBrokenLineCountBTitle.Left = lblTotalCountBTitle.Left + (lblBrokenLineCountB.Left - lblTotalCountBTitle.Left) * 6 / 7;
-
-            ////第三行
-            //lblNGTotalCountBTitle.Top = labelB.Top + (btnClearStaticsB.Top - labelB.Top) * 2 / 5;
-            //lblNGTotalCountBTitle.Left = labelB.Left;
-            //lblStartWeldingNGCountB.Top = lblNGTotalCountBTitle.Top;
-            //lblStartWeldingNGCountB.Left = lblCurrentClusterStateB12.Left - lblStartWeldingNGCountB.Width;
-            //lblNGTotalCountB.Top = lblNGTotalCountBTitle.Top;
-            //lblNGTotalCountB.Left = lblNGTotalCountBTitle.Left + (lblStartWeldingNGCountB.Left - lblNGTotalCountBTitle.Left) * 1 / 7;
-            //lblFilmMissCountBTitle.Top = lblNGTotalCountBTitle.Top;
-            //lblFilmMissCountBTitle.Left = lblNGTotalCountBTitle.Left + (lblStartWeldingNGCountB.Left - lblNGTotalCountBTitle.Left) * 2 / 7;
-            //lblFilmMissCountB.Top = lblNGTotalCountBTitle.Top;
-            //lblFilmMissCountB.Left = lblNGTotalCountBTitle.Left + (lblStartWeldingNGCountB.Left - lblNGTotalCountBTitle.Left) * 3 / 7 + 10;
-            //lblEdgeDefectCountBTitle.Top = lblNGTotalCountBTitle.Top;
-            //lblEdgeDefectCountBTitle.Left = lblNGTotalCountBTitle.Left + (lblStartWeldingNGCountB.Left - lblNGTotalCountBTitle.Left) * 4 / 7;
-            //lblEdgeDefectCountB.Top = lblNGTotalCountBTitle.Top;
-            //lblEdgeDefectCountB.Left = lblNGTotalCountBTitle.Left + (lblStartWeldingNGCountB.Left - lblNGTotalCountBTitle.Left) * 5 / 7;
-            //lblStartWeldingNGCountBTitle.Top = lblNGTotalCountBTitle.Top;
-            //lblStartWeldingNGCountBTitle.Left = lblNGTotalCountBTitle.Left + (lblStartWeldingNGCountB.Left - lblNGTotalCountBTitle.Left) * 6 / 7;
-
-            ////第四行
-            //lblMajorFailureCountBTitle.Top = labelB.Top + (btnClearStaticsB.Top - labelB.Top) * 3 / 5;
-            //lblMajorFailureCountBTitle.Left = labelB.Left;
-            //lblSurfaceColorDiffCountB.Top = lblMajorFailureCountBTitle.Top;
-            //lblSurfaceColorDiffCountB.Left = lblCurrentClusterStateB12.Left - lblSurfaceColorDiffCountB.Width;
-            //lblMajorFailureCountB.Top = lblMajorFailureCountBTitle.Top;
-            //lblMajorFailureCountB.Left = lblMajorFailureCountBTitle.Left + (lblSurfaceColorDiffCountB.Left - lblMajorFailureCountBTitle.Left) * 1 / 7;
-            //lblFilmShiftingHeadAndTailCountBTitle.Top = lblMajorFailureCountBTitle.Top;
-            //lblFilmShiftingHeadAndTailCountBTitle.Left = lblMajorFailureCountBTitle.Left + (lblSurfaceColorDiffCountB.Left - lblMajorFailureCountBTitle.Left) * 2 / 7;
-            //lblFilmShiftingHeadAndTailCountB.Top = lblMajorFailureCountBTitle.Top;
-            //lblFilmShiftingHeadAndTailCountB.Left = lblMajorFailureCountBTitle.Left + (lblSurfaceColorDiffCountB.Left - lblMajorFailureCountBTitle.Left) * 3 / 7;
-            //lblSurfaceDefectCountBTitle.Top = lblMajorFailureCountBTitle.Top;
-            //lblSurfaceDefectCountBTitle.Left = lblMajorFailureCountBTitle.Left + (lblSurfaceColorDiffCountB.Left - lblMajorFailureCountBTitle.Left) * 4 / 7;
-            //lblSurfaceDefectCountB.Top = lblMajorFailureCountBTitle.Top;
-            //lblSurfaceDefectCountB.Left = lblMajorFailureCountBTitle.Left + (lblSurfaceColorDiffCountB.Left - lblMajorFailureCountBTitle.Left) * 5 / 7;
-            //lblSurfaceColorDiffCountBTitle.Top = lblMajorFailureCountBTitle.Top;
-            //lblSurfaceColorDiffCountBTitle.Left = lblMajorFailureCountBTitle.Left + (lblSurfaceColorDiffCountB.Left - lblMajorFailureCountBTitle.Left) * 6 / 7;
-
-            ////第五行
-            //lblLinearityNGCountB.Top = labelB.Top + (btnClearStaticsB.Top - labelB.Top) * 4 / 5;
-            //lblLinearityNGCountB.Left = lblCurrentClusterStateB12.Left - lblLinearityNGCountB.Width;
-            //lblLinearityNGCountBTitle.Top = lblLinearityNGCountB.Top;
-            //lblLinearityNGCountBTitle.Left = lblLinearityNGCountB.Left - lblLinearityNGCountBTitle.Width - 20;
+           
         }
         private void SaveImage(Queue<HObject> imageQueue, string path, string pathAdvanced, bool isReDetect, string format, string redetectFormat, string inspectSide, bool isRoi)
         {
@@ -4631,7 +4481,7 @@ namespace _6
             
             IsUsingWidthResolutionCalibratePositiveA = new HTuple(Convert.ToInt32(Global.isUsingWidthResolutionCalibratePositiveA));
             WidthResolutionPositiveA = new HTuple(Convert.ToDouble(Global.widthResolutionPositiveA));
-            WaferWidth = new HTuple(Convert.ToDouble(Global.waferWidth));
+            //WaferWidth = new HTuple(Convert.ToDouble(Global.waferWidth));
             WaferWidthPositiveA = new HTuple(Convert.ToDouble(Global.waferWidthPositiveA));
             
             
@@ -6181,6 +6031,7 @@ namespace _6
                                 }
                                 //SingleClassCellMissingNGFlagArrayPositiveA[WaferIDPositiveA - 2] = true;
                                 SingleClassNGTypePositiveA = SingleClassFilmShiftingTypePositiveA + " " + SingleClassFilmMissTypePositiveA + " " + SingleClassFilmShiftingOfHeadAndTailTypePositiveA + " " + SingleClassDistanceNGTypePositiveA + " " + SingleClassEdgeDefectTypePositiveA + " " + SingleClassSurfaceDefectTypePositiveA + " " + SingleClassSurfaceScratchTypePositiveA + " " + SingleClassBrokenLineTypePositiveA + " " + SingleClassStargingWeldingNGTypePositiveA + " " + SingleClassSurfaceMeanGrayNGTypePositiveA;
+                                
                                 this.RefreshCurrentClusterStatePositiveA(false, WaferIDPositiveA - 1);
                                 //HOperatorSet.GenEmptyObj(out tempCellMissImagePositiveA);
                                 //HOperatorSet.CopyImage(ho_MainImagePositiveA, out tempCellMissImagePositiveA);
@@ -6585,7 +6436,7 @@ namespace _6
                             SingleClassCellMissingNGFlagArrayPositiveA[WaferIDPositiveA - 1] = true;
                             if (WaferIDPositiveA == WaferCountPerClass+1)
                             {
-                                #region 上串检测数据统计汇总
+#region 上串检测数据统计汇总
                                 //TotalAlgorithmExceptionCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassAlgorithmExceptionNGFlagArrayPositiveA);
                                 //TotalCellMissingCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassCellMissingNGFlagArrayPositiveA);
                                 //TotalFilmShiftingCountPerClassPositiveA = StaticTrueCountInFlagArray(SingleClassFilmShiftingFlagArrayPositiveA);
@@ -6686,7 +6537,7 @@ namespace _6
                                 //}
                                 //idOfPositiveA++;
                                 //WaferIDPositiveA = 1;
-                                #endregion
+#endregion
                             }
                             //HOperatorSet.GenEmptyObj(out tempCellMissImagePositiveA);
                             //HOperatorSet.CopyImage(ho_MainImagePositiveA, out tempCellMissImagePositiveA);
@@ -9559,7 +9410,7 @@ namespace _6
                                             SingleClassFilmShiftingOfHeadAndTailTypePositiveB = "";
                                         }
 
-                                        if (SingleClassDistanceNGFlagArrayPositiveB[WaferIDPositiveB - 2])
+                                        if (SingleClassDistanceNGFlagArrayPositiveB[WaferIDPositiveB - 1])
                                         {
                                             if (Global.isEnglish == "0")
                                             {
@@ -16693,10 +16544,10 @@ namespace _6
             var nHeight = frame.Height;
 
             var nRGB = RGBFactory.EncodeLen((int)CameraImageMaxWidth, (int)CameraImageMaxHeight, true);
-            if (ptrRGB_PositiveA == IntPtr.Zero)
-            {
+            //if (ptrRGB_PositiveA == IntPtr.Zero)
+            //{
                 ptrRGB_PositiveA = Marshal.AllocHGlobal(nRGB);
-            }
+            //}
 
             oParam_PositiveA.width = frame.Width;
             oParam_PositiveA.height = frame.Height;
@@ -16726,9 +16577,12 @@ namespace _6
 
             try
             {
-                HObject tempImageFromCameraA;
+                HObject tempImageFromCameraA, tempImageFromCameraATemp;
+
                 HOperatorSet.GenEmptyObj(out tempImageFromCameraA);
-                HOperatorSet.GenImageInterleaved(out tempImageFromCameraA, (HTuple)ptrRGB_PositiveA, "bgr", nWidth, nHeight, 0, "byte", nWidth, nHeight, 0, 0, 8, 0);
+
+                HOperatorSet.GenImageInterleaved(out tempImageFromCameraATemp, (HTuple)ptrRGB_PositiveA, "bgr", nWidth, nHeight, 0, "byte", nWidth, nHeight, 0, 0, 8, 0);
+                HOperatorSet.CopyImage(tempImageFromCameraATemp, out tempImageFromCameraA);
                 if (bl_IsRunPositive && IsUsingCamera_PositiveA)
                 {
                     lock (LockObjectPositiveA)
@@ -16744,7 +16598,7 @@ namespace _6
             }
             finally
             {
-                //Marshal.FreeHGlobal(ptrRGB_PositiveA);
+                Marshal.FreeHGlobal(ptrRGB_PositiveA);
             }
         }
 
@@ -16758,10 +16612,10 @@ namespace _6
             var nHeight = frame.Height;
 
             var nRGB1 = RGBFactory.EncodeLen((int)CameraImageMaxWidth, (int)CameraImageMaxHeight, true);
-            if (ptrRGB_PositiveB == IntPtr.Zero)
-            {
+            //if (ptrRGB_PositiveB == IntPtr.Zero)
+            //{
                 ptrRGB_PositiveB = Marshal.AllocHGlobal(nRGB1);
-            }
+          //  }
 
             oParam_PositiveB.width = frame.Width;
             oParam_PositiveB.height = frame.Height;
@@ -16793,13 +16647,18 @@ namespace _6
 
             try
             {
-                HObject tempImageFromCameraB;
+                HObject tempImageFromCameraB, tempImageFromCameraBTemp;
                 HOperatorSet.GenEmptyObj(out tempImageFromCameraB);
-                HOperatorSet.GenImageInterleaved(out tempImageFromCameraB, (HTuple)ptrRGB_PositiveB, "bgr", nWidth, nHeight, 0, "byte", nWidth, nHeight, 0, 0, 8, 0);
-                lock (LockObjectPositiveB)
+                HOperatorSet.GenImageInterleaved(out tempImageFromCameraBTemp, (HTuple)ptrRGB_PositiveB, "bgr", nWidth, nHeight, 0, "byte", nWidth, nHeight, 0, 0, 8, 0);
+                HOperatorSet.CopyImage(tempImageFromCameraBTemp, out tempImageFromCameraB);
+
+                if (bl_IsRunPositive && IsUsingCamera_PositiveB)
                 {
-                    if (bl_IsRunPositive)
-                        ImageQueuePositiveB.Enqueue(tempImageFromCameraB);
+                    lock (LockObjectPositiveB)
+                    {
+                        if (bl_IsRunPositive)
+                            ImageQueuePositiveB.Enqueue(tempImageFromCameraB);
+                    }
                 }
             }
             catch (Exception exception)
@@ -16808,7 +16667,7 @@ namespace _6
             }
             finally
             {
-                //Marshal.FreeHGlobal(ptrRGB_PositiveB);
+                Marshal.FreeHGlobal(ptrRGB_PositiveB);
             }
         }
 
@@ -18915,8 +18774,7 @@ namespace _6
         }
         string LastRecv;
         public void OnClientSendData()
-        {
-
+        {           
             if (Result2PLC.Count > 0)
             {
                 lock (Result2PLC)
@@ -18925,14 +18783,15 @@ namespace _6
 
                     string d = Result2PLC.Dequeue();
 
-                    l2TCPClientSend2PLC.Active = true;
+                    //l2TCPClientSend2PLC.Active = false;
+                    //l2TCPClientSend2PLC.Active = true;
                     l2TCPClientSend2PLC.SendString(d);
                     Thread.Sleep(10);
                     //textBox1.Text = Recv;
                     while (Recv == "E1\r\n" || Recv == "")
                     {
-                        l2TCPClientSend2PLC.Active = false;
-                        l2TCPClientSend2PLC.Active = true;
+                        //l2TCPClientSend2PLC.Active = false;
+                        //l2TCPClientSend2PLC.Active = true;
                         l2TCPClientSend2PLC.SendString(d);
                         Thread.Sleep(10);
                         SendTimes++;
@@ -18958,8 +18817,10 @@ namespace _6
                     {
                         if (LastRecv != Recv.Substring(3, 2))
                         {
-                            RefreshNGIfo(singleClassNGPositiveAList, singleClassNGNegativeAList, "A");
-
+                            Invoke( new UpdateForm_dl(()=>
+                            {
+                                RefreshNGIfo(singleClassNGPositiveAList, singleClassNGNegativeAList, "A");
+                            }));       
                         }
                         LastRecv = Recv.Substring(3, 2);
                         //listBox1.Items.Add(Recv);
@@ -18974,8 +18835,10 @@ namespace _6
                     {
                         if (LastRecv != Recv.Substring(3, 2))
                         {
-                            RefreshNGIfo(singleClassNGPositiveBList, singleClassNGNegativeBList, "B");
-
+                            Invoke(new UpdateForm_dl(() =>
+                            {
+                                RefreshNGIfo(singleClassNGPositiveBList, singleClassNGNegativeBList, "B");
+                            }));
                         }
                         LastRecv = Recv.Substring(3, 2);
                         //listBox1.Items.Add(Recv);
@@ -19040,6 +18903,7 @@ namespace _6
         }
         private void l2TCPClientSend2PLC_DataReceived(object sender, L2TCPClient.DataReceivedEventArgs e)
         {
+            commMonitor = 0;
             Recv = System.Text.Encoding.Default.GetString(e.Data);
             Global.SaveLog("D:\\Program Files\\Config\\033\\TcpIpStateLogReceive.txt",
                         DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss:ff") + " Receive:  " + Recv);

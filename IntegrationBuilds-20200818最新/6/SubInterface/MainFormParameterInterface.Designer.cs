@@ -585,6 +585,7 @@
             this.label198 = new System.Windows.Forms.Label();
             this.label199 = new System.Windows.Forms.Label();
             this.label200 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -702,6 +703,7 @@
             this.chxIsUpperLink.Text = "上位链路";
             this.chxIsUpperLink.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chxIsUpperLink.UseVisualStyleBackColor = true;
+            this.chxIsUpperLink.CheckedChanged += new System.EventHandler(this.chxIsUpperLink_CheckedChanged);
             // 
             // groupBox53
             // 
@@ -6444,6 +6446,7 @@
             this.Load += new System.EventHandler(this.MainFormParameterInterface_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.groupBox54.ResumeLayout(false);
             this.groupBox54.PerformLayout();

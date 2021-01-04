@@ -4172,5 +4172,18 @@ namespace _6
                 chkIsSaveNGImage_PositiveB.Checked = true;
             }
         }
+
+        private void chxIsUpperLink_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chxIsUpperLink.Checked)
+            {
+                mainForm.l2TCPClientSend2PLC.Active = false ;
+                mainForm.l2TCPClientSend2PLC.Active = true;
+            }
+            else
+            {
+                mainForm.l2TCPClientSend2PLC.Active = false ;
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>_6</RootNamespace>
     <AssemblyName>ASI-2020-Dahua</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -116,9 +116,9 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="CLIDelegate, Version=1.0.6656.35406, Culture=neutral, PublicKeyToken=71f71440696c7e6b, processorArchitecture=AMD64">
+    <Reference Include="CLIDelegate, Version=1.0.6656.35392, Culture=neutral, PublicKeyToken=71f71440696c7e6b, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\DahuaTech\MV Viewer\Development\DOTNET DLL\DOTNET_3.5\x64\CLIDelegate.dll</HintPath>
+      <HintPath>C:\Program Files\DahuaTech\MV Viewer\Development\DOTNET DLL\DOTNET_4.0\x64\CLIDelegate.dll</HintPath>
     </Reference>
     <Reference Include="DALSA.SaperaLT.SapClassBasic, Version=8.20.1.1703, Culture=neutral, PublicKeyToken=4d8604101dcb6b58, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
@@ -143,6 +143,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -153,7 +154,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="ThridLibray, Version=1.0.0.31445, Culture=neutral, PublicKeyToken=407bb547be8622a9, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\DahuaTech\MV Viewer\Development\DOTNET DLL\DOTNET_3.5\x64\ThridLibray.dll</HintPath>
+      <HintPath>C:\Program Files\DahuaTech\MV Viewer\Development\DOTNET DLL\DOTNET_4.0\x64\ThridLibray.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

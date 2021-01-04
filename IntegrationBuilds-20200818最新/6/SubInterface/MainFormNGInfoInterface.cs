@@ -41,6 +41,7 @@ namespace _6
                     if (e.ColumnIndex % 2 != 0)  // 正面
                     {
                         string positiveNGId = informationANgtable.Rows[e.RowIndex].Cells[1].Value.ToString();
+                        //SingleClassNG singleClassNGPositiveA = mainForm.singleClassNGPositiveAList[0];
                         foreach (SingleClassNG singleClassNGPositiveA in mainForm.singleClassNGPositiveAList)
                         {
                             if (singleClassNGPositiveA.Id.ToString().Equals(positiveNGId))

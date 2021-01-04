@@ -170,6 +170,7 @@ namespace _6
             this.button2.TabIndex = 109;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label3
@@ -425,7 +426,7 @@ namespace _6
             // timer_AutoReadNGNum
             // 
             this.timer_AutoReadNGNum.Enabled = true;
-            this.timer_AutoReadNGNum.Interval = 2000;
+            this.timer_AutoReadNGNum.Interval = 300;
             this.timer_AutoReadNGNum.Tick += new System.EventHandler(this.timer_AutoReadNGNum_Tick);
             // 
             // MainForm
@@ -434,7 +435,7 @@ namespace _6
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.DarkGray;
-            this.ClientSize = new System.Drawing.Size(992, 372);
+            this.ClientSize = new System.Drawing.Size(993, 373);
             this.ControlBox = false;
             this.Controls.Add(this.pnlMainFormContentView);
             this.Controls.Add(this.pnlMainFormMenu);
@@ -493,8 +494,8 @@ namespace _6
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
-        private L2TCPClient.L2TCPClient l2TCPClientSend2PLC;
         private System.Windows.Forms.Timer timer_AutoReadNGNum;
+        public L2TCPClient.L2TCPClient l2TCPClientSend2PLC;
     }
 }
 
